@@ -1,78 +1,237 @@
-    /* dashboard css style */
+/* STYLES */
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
-    /*------- dashboard header style -------*/
-    .navigation-bar {
-        width: 100%;
-        height: 60px; 
-        background-color: rgba(236, 194, 104, 0.842);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 20px; 
-      }
-      
-      .header-content {
-        display: flex;
-        align-items: center;
-        width: 100%;
-      }
-      
-      .header-title {
-          width: auto;
-       
-      }
-      
-      .header-sections {
-        display: flex;
-        justify-content: flex-end;
-        margin-left: 50%;
-      }
-      
-      .nav-link {
-        margin-left: 20px; 
-        text-decoration: none;
-        color: black; 
-        font-weight: bold; 
-      }
-      
-    .nav-link:hover {
-        color: white; 
-      }
-    
-      .user{
-        background-color: green;
-        width: 20%;
-      }
+/*----------- navbar.php -------------*/
+/*------- navbar style -------*/
+.navigation-bar {
+  width: 100%;
+  height: 60px;
+  background-color: rgba(236, 194, 104, 0.842);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
 
-    /*------- Table styles -------*/
-    .table-design {
-        width: 100%;
-        border-collapse: collapse;
-    }
+.header-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
 
-    .table-wrapper {
-        
-        max-width: 1000px;
-        margin-top: 5%;
-        margin-left: 8%;
-    }
+.header-title {
+  width: auto;
+}
 
-    /*------- Table header styles -------*/
-    .table-header th {
-        background-color: #f2f2f2;
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: center;
-        font-family: Arial, Helvetica, sans-serif;
-    }
+.header-sections {
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 50%;
+}
 
-    /*------- Table row styles (alternating colors) -------*/
-    .table-design tbody tr:nth-child(even) {
-        background-color: #84a1ff94;
-    }
+.nav-link {
+  margin-left: 20px;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
 
-    /*------- Table cell styles -------*/
-    .table-design td {
-        border: 1px solid #ddd;
-        padding: 8px;
-    }
+/*----------- dashboard.php -------------*/
+/*------- Table styles -------*/
+.table-design {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-wrapper {
+  max-width: 100%;
+  margin-left: auto;
+}
+
+/*------- Table header styles -------*/
+.table-header th {
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/*------- Table row styles (alternating colors) -------*/
+.table-design tbody tr:nth-child(even) {
+  background-color: #d4d4d4;
+}
+
+/*------- Table cell styles -------*/
+.table-design td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+/*------- files.php styles -------*/
+.btnUpload-style {
+  display: inline-block;
+  padding: 8px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#fileInput {
+  display: none;
+}
+#fileInput + .btnUpload-style:before {
+  content: "Upload Img";
+}
+
+/*-------- ticketing.php styles -------- */
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button-container {
+  margin-left: 20%;
+  margin-right: 50%;
+}
+.add-ticket {
+  cursor: pointer;
+}
+/*--- pop-up style ---*/
+.ticket-popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.1s ease forwards;
+}
+.TicketForm {
+  width: 100%;
+  max-width: 700px;
+  padding: 40px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  font-family: "Roboto", sans-serif;
+  animation: slideIn 0.5s ease forwards;
+}
+
+.TicketForm label {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.TicketForm input[type="text"],
+.TicketForm input[type="datetime-local"] {
+  width: calc(100% - 10px);
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+.TicketForm .btn-add,
+.TicketForm .btn-cancel {
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* CSS */
+.add-ticket {
+  appearance: none;
+  background-color: #2ea44f;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 6px 16px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.add-ticket:focus:not(:focus-visible):not(.focus-visible) {
+  box-shadow: none;
+  outline: none;
+}
+
+.add-ticket:hover {
+  background-color: #2c974b;
+}
+
+.add-ticket:focus {
+  box-shadow: rgba(46, 164, 79, 0.4) 0 0 0 3px;
+  outline: none;
+}
+
+.add-ticket:disabled {
+  background-color: #94d3a2;
+  border-color: rgba(27, 31, 35, 0.1);
+  color: rgba(255, 255, 255, 0.8);
+  cursor: default;
+}
+
+.add-ticket:active {
+  background-color: #298e46;
+  box-shadow: rgba(20, 70, 32, 0.2) 0 1px 0 inset;
+}
+.search-container {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin: 0;
+}
+.search-container input[type="text"] {
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.search-container button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.toolbar {
+  display: flex;
+}
