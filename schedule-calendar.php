@@ -7,8 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>eme na calendar</title>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="./lib/calendar.css">
+    <link rel="stylesheet" href="./lib/calendar-main.css">
     <link rel="stylesheet" href="./lib/main.min.css">
+    <link rel="stylesheet" href="./lib/calendar.min.css">
     <script src="./lib/js/jquery-3.6.0.min.js"></script>
     <script src="./lib/js/bootstrap.min.js"></script>
     <script src="./lib/main.min.js"></script>
