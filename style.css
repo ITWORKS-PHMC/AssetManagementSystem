@@ -26,14 +26,15 @@
 .header-sections {
   display: flex;
   justify-content: flex-end;
-  margin-left: 50%;
+  margin-left: 50% !important;
+  font-family: "Roboto", sans-serif !important;
 }
 
 .nav-link {
-  margin-left: 20px;
-  text-decoration: none;
-  color: black;
-  font-weight: bold;
+  margin-left: 20px !important;
+  text-decoration: none !important;
+  color: black !important;
+  font-weight: bold !important;
 }
 
 /*----------- dashboard.php -------------*/
