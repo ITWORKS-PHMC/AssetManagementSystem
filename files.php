@@ -1,3 +1,7 @@
+<?php
+require 'function/connect.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,13 +11,25 @@
     <link rel="stylesheet" href="style.css">
     <?php include("./layouts/navbar.php")?>
 </head>
+<script>
+    function addfile(){
+        document.getElementById("pop-up").style.display = "flex";
+    }
+</script>
 <body>
     <div class="files-header">
         <h1>Files to Upload</h1>
-        <label for="fileInput" class="btnUpload-style">Upload Img</label>
+        <button class="btnUpload-style" onclick=addfile()>Upload File</button>
+        <div class ="upload-modal" id="pop-up">
+        <form class="upload" method="POST">
         <input type="file" id="fileInput" multiple>
         <textarea id="description" placeholder="Add a description..."></textarea>
         <button id="submitBtn">Submit</button>
+        </form>
+        </div>
+
+        </div>
+       
         <hr>
         <br>
     </div>
