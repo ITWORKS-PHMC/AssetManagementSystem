@@ -19,12 +19,13 @@ require 'function/connect.php';
 <body>
     <div class="files-header">
         <h1>Files to Upload</h1>
-        <button class="btnUpload-style" onclick=addfile()>Upload File</button>
-        <div class ="upload-modal" id="pop-up">
+        <button class="btnUpload-style" onclick="addfile()">Upload File</button>
+        <div class ="Modal" id="pop-up">
         <form class="upload" method="POST">
         <input type="file" id="fileInput" multiple>
         <textarea id="description" placeholder="Add a description..."></textarea>
         <button id="submitBtn">Submit</button>
+         <button type="button" class="btn-cancel" onclick="closeForm()">Close</button>
         </form>
         </div>
 
