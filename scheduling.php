@@ -17,8 +17,9 @@ require 'function/connect.php';
 <!---- CALENDAR ----->
 <div class="calendar-container">
     <?php
-    include 'schedule-calendar.php';
+    include 'scheduling-calendar.php';
     ?>
+    
 </div>
 </body>
 </html>
