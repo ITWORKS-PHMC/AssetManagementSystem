@@ -12,31 +12,31 @@ require 'function/connect.php';
     <?php include("./layouts/navbar.php")?>
 </head>
 <script>
-    function addfile(){
+    function openForm(){
         document.getElementById("pop-up").style.display = "flex";
     }
+    
+    function closeForm() {
+        document.getElementById("pop-up").style.display = "none";
+    }
+    
 </script>
 <body>
-    <div class="files-header">
-        <h1>Files to Upload</h1>
-        <button class="btnUpload-style" onclick="addfile()">Upload File</button>
-        <div class ="Modal" id="pop-up">
-        <form class="upload" method="POST">
-        <input type="file" id="fileInput" multiple>
-        <textarea id="description" placeholder="Add a description..."></textarea>
-        <button id="submitBtn">Submit</button>
-         <button type="button" class="btn-cancel" onclick="closeForm()">Close</button>
+<div class="files-header">
+    <h1>Files to Upload</h1>
+    <button class="btnUpload-style" onclick="openForm()">Upload File</button>
+    <div class="Modal" id="pop-up">
+        <form class="Form" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+            <input type="text" id="description" name="description" placeholder="Add a description...">
+            <button type="submit" class="btn-upload">Upload</button>
+            <button type="button" class="btn-cancel" onclick="closeForm()">Close</button>
         </form>
-        </div>
-
-        </div>
-       
-        <hr>
-        <br>
     </div>
-    <div class="files-content" id="filesContent">
-        <!-- Images and descriptions will be displayed here -->
-    </div>
-    
+</div>
+<hr>
+<br>
+<div class="files-content" id="filesContent">
+    <!-- Images and descriptions will be displayed here -->
+</div>
 </body>
 </html>
