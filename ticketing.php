@@ -43,14 +43,14 @@ $result = $conn->query($sql);
             </form>
         </div>
         <div class="button-container">
-            <button class="add-ticket" onclick="addticket()">+ Ticket</button>
+            <button class="add-ticket" onclick="openForm()">+ Ticket</button>
         </div>
     </div>
     <br>
     <hr>
 
     <script>
-        function addticket() {
+        function openForm() {
             document.getElementById("pop-up").style.display = "flex";
         }
         function closeForm() {
@@ -70,9 +70,9 @@ $result = $conn->query($sql);
             });
         });
           </script>
-    <div class="ticket-popup" id="pop-up">
+    <div class="Modal" id="pop-up">
         <div class="popup">
-            <form class="TicketForm" method="post" id="addTicketForm" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+            <form class="Form" method="post" id="addTicketForm" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                 <label for="dept">Department:</label><br>
                 <input type="text" id="dept" name="dept"><br>
 
