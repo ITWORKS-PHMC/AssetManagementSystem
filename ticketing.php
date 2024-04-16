@@ -116,7 +116,6 @@ $result = $conn->query($sql);
             </thead>
             <tbody>
                 <?php
-                /*--------- Transform nya yung int status to word -----------*/
              
 function getStatusText($status)
 {
