@@ -102,7 +102,7 @@
   cursor: pointer;
 }
 /*--- pop-up style ---*/
-.ticket-popup {
+.Modal {
   display: none;
   position: fixed;
   top: 0;
@@ -115,7 +115,7 @@
   align-items: center;
   animation: fadeIn 0.1s ease forwards;
 }
-.TicketForm {
+.Form {
   width: 100%;
   max-width: 700px;
   padding: 40px;
@@ -126,21 +126,21 @@
   animation: slideIn 0.5s ease forwards;
 }
 
-.TicketForm label {
+.Form label {
   font-size: 18px;
   margin-bottom: 10px;
 }
 
-.TicketForm input[type="text"],
-.TicketForm input[type="datetime-local"] {
+.Form input[type="text"],
+.Form input[type="datetime-local"] {
   width: calc(100% - 10px);
   padding: 10px;
   font-size: 16px;
   margin-bottom: 20px;
 }
 
-.TicketForm .btn-add,
-.TicketForm .btn-cancel {
+.Form .btn-add,
+.Form .btn-cancel {
   margin-top: 20px;
   cursor: pointer;
 }
