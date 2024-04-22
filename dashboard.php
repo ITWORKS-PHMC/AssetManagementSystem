@@ -8,7 +8,7 @@
     <?php include("./layouts/navbar.php")?>
 </head>
 <body>
-    <h1>ASSET MANAGEMENT</h1>
+    <h1>Dashboard</h1>
     <br><hr>
     <br>
 <div class="dashboard-content">
