@@ -91,7 +91,7 @@ if (isset($_SESSION['message'])) {
                             echo "<p><strong>Title:</strong> $title</p>";
                             echo "<p><strong>Schedule Date:</strong> $schedule_date</p>";
                             echo "<p><strong>End Date:</strong> $end_date</p>";
-                            echo "<button class='edit-btn' data-title='$title' data-start-date='$schedule_date' data-end-date='$end_date'>Edit</button>";
+                            echo "<button class='edit-btn' style='cursor:pointer;'data-title='$title' data-start-date='$schedule_date' data-end-date='$end_date'>Edit</button>";
                             echo "<hr>";
                         }
                     } else {
@@ -128,7 +128,7 @@ if (isset($_SESSION['message'])) {
             <input type="datetime-local" id="editStartDate" name="editStartDate"><br>
             <label for="editEndDate">End Date:</label><br>
             <input type="datetime-local" id="editEndDate" name="editEndDate"><br><br>
-            <input type="submit" value="Save Changes" class="btn-edit">
+            <input type="submit" value="Save Changes" class="btn-edit" style="cursor:pointer;">
             <button type="button" class="btn-cancel" onclick="closeEditForm()">Cancel</button>
         </form>
     </div>
