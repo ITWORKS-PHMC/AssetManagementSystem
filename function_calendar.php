@@ -35,21 +35,30 @@ else
 }
 echo json_encode($data);
 
-// edit schedule dates for task
+// Edit schedule dates for tasks
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $id = $_POST['editId'];
     $title = $_POST['editTitle'];
     $startDate = $_POST['editStartDate'];
     $endDate = $_POST['editEndDate'];
 
-    $query = "UPDATE scheduling SET title='$title', schedule_date='$startDate', end_date='$endDate' WHERE id=$id";
+    $query = "UPDATE scheduling SET title=?, schedule_date=?, end_date=? WHERE id=?";
+    $stmt = $con->prepare($query);
+    $stmt->bind_param("sssi", $title, $startDate, $endDate, $id);
 
-    if (mysqli_query($conn, $query)) {
-        echo "Event updated successfully";
+    if ($stmt->execute()) {
+        $response = array(
+            'status' => true,
+            'msg' => 'Event updated successfully'
+        );
     } else {
-        echo "Error updating event: " . mysqli_error($conn);
+        $response = array(
+            'status' => false,
+            'msg' => 'Error updating event: ' . $stmt->error
+        );
     }
+    echo json_encode($response);
 
-    mysqli_close($conn);
+    $stmt->close();
 }
 ?>

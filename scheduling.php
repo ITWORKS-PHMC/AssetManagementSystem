@@ -1,5 +1,11 @@
 <?php
-require 'app/connect.php';
+require 'config/connect.php';
+session_start();
+// Check for success or error messages
+if (isset($_SESSION['message'])) {
+    echo '<div class="message">' . $_SESSION['message'] . '</div>';
+    unset($_SESSION['message']); // Clear the message
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,20 +84,19 @@ require 'app/connect.php';
                     $result = mysqli_query($conn, $query);
         
                     if (mysqli_num_rows($result) > 0) {
-                       while ($row = mysqli_fetch_assoc($result)) {
-                        $title = $row['title'];
-                        $schedule_date = $row['schedule_date'];
-                        $end_date = $row['end_date'];
-                        echo "<p><strong>Title:</strong> $title</p>";
-                        echo "<p><strong>Schedule Date:</strong> $schedule_date</p>";
-                        echo "<p><strong>End Date:</strong> $end_date</p>";
-                        echo "<button class='edit-btn' data-title='$title' data-start-date='$schedule_date' data-end-date='$end_date'>Edit</button>";
-                        echo "<hr>";
-                    }
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            $title = $row['title'];
+                            $schedule_date = $row['schedule_date'];
+                            $end_date = $row['end_date'];
+                            echo "<p><strong>Title:</strong> $title</p>";
+                            echo "<p><strong>Schedule Date:</strong> $schedule_date</p>";
+                            echo "<p><strong>End Date:</strong> $end_date</p>";
+                            echo "<button class='edit-btn' data-title='$title' data-start-date='$schedule_date' data-end-date='$end_date'>Edit</button>";
+                            echo "<hr>";
+                        }
                     } else {
                         echo "<p>No scheduled events.</p>";
                     }
-                    
                     mysqli_close($conn);
                     ?>
 
@@ -155,7 +160,7 @@ require 'app/connect.php';
     });
     // Function to open edit form
     function openEditForm() {
-        document.getElementById('edit-pop-up').style.display = 'block';
+        document.getElementById('edit-pop-up').style.display = 'flex';
     }
     // Function to close edit form
     function closeEditForm() {

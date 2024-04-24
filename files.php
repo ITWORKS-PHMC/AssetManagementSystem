@@ -1,5 +1,5 @@
 <?php
-require 'app/connect.php';
+require 'config/connect.php';
 
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
