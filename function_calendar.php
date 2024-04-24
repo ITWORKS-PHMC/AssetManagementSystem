@@ -34,4 +34,22 @@ else
             );
 }
 echo json_encode($data);
+
+// edit schedule dates for task
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $id = $_POST['editId'];
+    $title = $_POST['editTitle'];
+    $startDate = $_POST['editStartDate'];
+    $endDate = $_POST['editEndDate'];
+
+    $query = "UPDATE scheduling SET title='$title', schedule_date='$startDate', end_date='$endDate' WHERE id=$id";
+
+    if (mysqli_query($conn, $query)) {
+        echo "Event updated successfully";
+    } else {
+        echo "Error updating event: " . mysqli_error($conn);
+    }
+
+    mysqli_close($conn);
+}
 ?>
