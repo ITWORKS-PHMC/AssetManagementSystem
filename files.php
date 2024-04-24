@@ -1,5 +1,5 @@
 <?php
-require 'function/connect.php';
+require 'app/connect.php';
 
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Upload</title>
     <link rel="stylesheet" href="style.css">
-    <?php include("./layouts/navbar.php")?>
+    <?php include("./resources/navbar.php")?>
     <style>
        /* Hide the default file input button */
         input[type="file"] {
@@ -144,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
 <div class="files-header">
-    <h1>Files to Upload</h1>
+    <p class="title-page">Files to Upload</p>
     <button class="btnUpload-style" onclick="openForm()">Upload File</button>
     <div class="Modal" id="pop-up">
         <form class="Form" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">

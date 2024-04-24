@@ -1,5 +1,5 @@
 <?php
-require 'function/connect.php';
+require 'app/connect.php';
 
 // Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -48,12 +48,12 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asset Management - Ticketing</title>
     <link rel="stylesheet" href="style.css">
-    <?php include("./layouts/navbar.php") ?>
+    <?php include("./resources/navbar.php") ?>
 </head>
 <body>
     <div class="page-header">
         <div class="title-container">
-            <h1 class="title-header">Ticketing for Maintenance Tasks </h1>
+            <p class="title-page">Ticketing</p>
         </div>
     </div>
     <div class="toolbar">
@@ -64,7 +64,7 @@ $result = $conn->query($sql);
             </form>
         </div>
         <div class="button-container">
-            <button class="add-ticket" onclick="openForm()">+ Ticket</button>
+            <button class="buttonAdd" onclick="openForm()">+ Ticket</button>
         </div>
     </div>
     <br>

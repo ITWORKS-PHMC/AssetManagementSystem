@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asset Management-Dashboard</title>
     <link rel="stylesheet" href="style.css">
-    <?php include("./layouts/navbar.php")?>
+    <?php include("./resources/navbar.php")?>
 </head>
 <body>
-    <h1>Dashboard</h1>
+    <p class="title-page">Dashboard</p>
     <br><hr>
     <br>
 <div class="dashboard-content">
