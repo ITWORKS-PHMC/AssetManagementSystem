@@ -134,8 +134,8 @@ function display_events() {
                 selectable: true,
                 selectHelper: true,
                 select: function(start, end) {
-                    $('#event_start_date').val(moment(start).format('YYYY-MM-DD'));
-                    $('#event_end_date').val(moment(end).format('YYYY-MM-DD'));
+                    $('#event_start_date').val(moment(start).format('YYYY-MM-DD h:mm A'));
+                    $('#event_end_date').val(moment(end).format('YYYY-MM-DD h:mm A'));
                 },
                 events: events,
             });

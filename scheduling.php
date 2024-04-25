@@ -1,6 +1,5 @@
 <?php
 require 'config/connect.php';
-session_start();
 // Check for success or error messages
 if (isset($_SESSION['message'])) {
     echo '<div class="message">' . $_SESSION['message'] . '</div>';
@@ -86,8 +85,8 @@ if (isset($_SESSION['message'])) {
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             $title = $row['title'];
-                            $schedule_date = $row['schedule_date'];
-                            $end_date = $row['end_date'];
+                            $schedule_date = date("Y-m-d h:i A",strtotime($row['schedule_date'])); // Display without seconds, in 12-hour format
+                            $end_date = date("Y-m-d h:i A", strtotime($row['end_date'])); // Display without seconds, in 12-hour format
                             echo "<p><strong>Title:</strong> $title</p>";
                             echo "<p><strong>Schedule Date:</strong> $schedule_date</p>";
                             echo "<p><strong>End Date:</strong> $end_date</p>";
@@ -103,15 +102,16 @@ if (isset($_SESSION['message'])) {
         </div>
     </div>
 </div>
-
+<!-- CALENDAR MODAL for adding schedule dates -->
 <div class="Modal" id="pop-up">
     <div class="popup">
         <form class="Form" method="post" id="addTicketForm" action="function_calendar.php">
             <label for="title">Title:</label><br>
             <input type="text" id="title" name="title"><br>
-            <input type="datetime-local" id="startDate" name="startDate"><br>
+            <input type="datetime-local" id="startDate" name="startDate" step="1"><br>
             <label for="enddate">End-Date:</label><br>
-            <input type="datetime-local" id="endDate" name="endDate"><br><br>
+            <input type="datetime-local" id="endDate" name="endDate" step="1"><br><br>
+            <input type="hidden" name="addSchedule" value="1"> <!-- Add this line -->
             <input type="submit" value="Submit" class="btn-add">
             <button type="button" class="btn-cancel" onclick="closeForm()">Close</button>
         </form>
@@ -128,7 +128,8 @@ if (isset($_SESSION['message'])) {
             <input type="datetime-local" id="editStartDate" name="editStartDate"><br>
             <label for="editEndDate">End Date:</label><br>
             <input type="datetime-local" id="editEndDate" name="editEndDate"><br><br>
-            <input type="submit" value="Save Changes" class="btn-edit" style="cursor:pointer;">
+            <input type="hidden" name="addSchedule" value="1"> <!-- Add this line -->
+            <input type="submit" value="Save Changes" class="btn-edit" style="cursor:pointer;" onclick="submitEditForm()">
             <button type="button" class="btn-cancel" onclick="closeEditForm()">Cancel</button>
         </form>
     </div>
