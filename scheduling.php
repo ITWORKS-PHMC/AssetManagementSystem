@@ -60,9 +60,9 @@ if (isset($_SESSION['message'])) {
 
 
 <body>
-<div class="page-header">
+<header>
     <p class="title-page">Scheduling</p>
-</div>
+</header>
 
 <br><hr>
 <br>
@@ -85,8 +85,8 @@ if (isset($_SESSION['message'])) {
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
                             $title = $row['title'];
-                            $schedule_date = date("Y-m-d h:i A",strtotime($row['schedule_date'])); // Display without seconds, in 12-hour format
-                            $end_date = date("Y-m-d h:i A", strtotime($row['end_date'])); // Display without seconds, in 12-hour format
+                            $schedule_date = date("F d, Y | h:ia", strtotime($row['schedule_date'])); // Format schedule_date
+                            $end_date = date("F d, Y | h:ia", strtotime($row['end_date'])); // Format end_date
                             echo "<p><strong>Title:</strong> $title</p>";
                             echo "<p><strong>Schedule Date:</strong> $schedule_date</p>";
                             echo "<p><strong>End Date:</strong> $end_date</p>";

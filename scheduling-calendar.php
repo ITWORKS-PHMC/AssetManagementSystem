@@ -39,7 +39,7 @@ body {
 }
 #calendar {
     margin: 20px auto;
-    background-color: #ffffff;
+   
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 50px; /* Increased padding for more space */
@@ -88,8 +88,8 @@ body {
 .fc-start,
 .fc-not-end,
 .fc-draggable {
-    background-color: #00ab41!important;
-	border-color:#00ab41 !important;
+    /* background-color: #00ab41!important; */
+	border-color:black !important;
     cursor: pointer;
 }
 </style>
@@ -116,13 +116,16 @@ function display_events() {
         success: function(response) {
             var result = response.data;
             $.each(result, function(i, item) {
+                // Generate a random color for each event
+                var randomColor = generateRandomColor();
+                
                 events.push({
                     event_id: result[i].event_id,
                     title: result[i].title,
                     name: result[i].name,
                     start: result[i].start,
                     end: result[i].end,
-                    color: result[i].color,
+                    color: randomColor, // Assign the random color
                     url: result[i].url
                 });
             });
@@ -130,12 +133,12 @@ function display_events() {
             var calendar = $('#calendar').fullCalendar({
                 defaultView: 'month',
                 timeZone: 'local',
-                editable: true,
+                editable: false,
                 selectable: true,
                 selectHelper: true,
                 select: function(start, end) {
-                    $('#event_start_date').val(moment(start).format('YYYY-MM-DD h:mm A'));
-                    $('#event_end_date').val(moment(end).format('YYYY-MM-DD h:mm A'));
+                    $('#event_start_date').val(moment(start).format('YYYY-MM-DD'));
+                    $('#event_end_date').val(moment(end).format('YYYY-MM-DD'));
                 },
                 events: events,
             });
@@ -145,5 +148,24 @@ function display_events() {
         }
     });
 }
+
+// Function to generate a random color
+function generateRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    
+    // Check if the color is too light (lighter than #BBBBBB)
+    if (parseInt(color.substring(1, 3), 16) > 187 ||
+        parseInt(color.substring(3, 5), 16) > 187 ||
+        parseInt(color.substring(5, 7), 16) > 187) {
+        return generateRandomColor(); // Recursively call the function to generate a new color
+    }
+    
+    return color;
+}
+
 </script>
 </html>

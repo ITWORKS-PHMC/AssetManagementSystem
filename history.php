@@ -8,8 +8,11 @@
     <?php include("./resources/navbar.php")?>
 </head>
 <body>
+    <header>
     <p class="title-page">History to</p>
     <br><hr>
     <br>
+    </header>
+    
 </body>
 </html>

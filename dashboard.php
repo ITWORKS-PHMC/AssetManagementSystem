@@ -8,8 +8,10 @@
     <?php include("./resources/navbar.php")?>
 </head>
 <body>
+    <header>
     <p class="title-page">Dashboard</p>
     <br><hr>
+    </header>
     <br>
 <div class="dashboard-content">
   

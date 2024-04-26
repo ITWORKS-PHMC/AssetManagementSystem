@@ -46,8 +46,9 @@ if ($results) {
         $data_arr[$i]['id'] = $data_row['id'];
         $data_arr[$i]['title'] = $data_row['title'];
         // Format dates to 'Y-m-d' format
-$data_arr[$i]['start'] = date("Y-m-d h:i A", strtotime($data_row['schedule_date']));
-$data_arr[$i]['end'] = date("Y-m-d h:i A", strtotime($data_row['end_date']));
+    $data_arr[$i]['start'] = date("Y-m-d", strtotime($data_row['schedule_date']));
+	$data_arr[$i]['end'] = date("Y-m-d", strtotime($data_row['end_date']));
+
         $data_arr[$i]['color'] = '#640a00'; // Set color as desired
         $data_arr[$i]['url'] = '#'; // Set URL as desired
         $i++;
