@@ -128,12 +128,13 @@ if (isset($_SESSION['message'])) {
             <input type="datetime-local" id="editStartDate" name="editStartDate"><br>
             <label for="editEndDate">End Date:</label><br>
             <input type="datetime-local" id="editEndDate" name="editEndDate"><br><br>
-            <input type="hidden" name="addSchedule" value="1"> <!-- Add this line -->
-            <input type="submit" value="Save Changes" class="btn-edit" style="cursor:pointer;" onclick="submitEditForm()">
+            <input type="hidden" name="editSchedule" value="1"> <!-- Change this line to editSchedule -->
+            <input type="submit" value="Save Changes" class="btn-edit" style="cursor:pointer;">
             <button type="button" class="btn-cancel" onclick="closeEditForm()">Cancel</button>
         </form>
     </div>
 </div>
+
  <script>
         function openForm() {
             document.getElementById("pop-up").style.display = "flex";
@@ -141,24 +142,23 @@ if (isset($_SESSION['message'])) {
         function closeForm() {
             document.getElementById("pop-up").style.display = "none";
         }
-         // Edit button click event
-        document.querySelectorAll('.edit-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            let title = this.getAttribute('data-title');
-            let startDate = this.getAttribute('data-start-date');
-            let endDate = this.getAttribute('data-end-date');
+        // Edit button click event
+document.querySelectorAll('.edit-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        let title = this.getAttribute('data-title');
+        let startDate = this.getAttribute('data-start-date');
+        let endDate = this.getAttribute('data-end-date');
+        let eventId = this.getAttribute('data-event-id');
 
-            document.getElementById('editTitle').value = title;
-            document.getElementById('editStartDate').value = startDate;
-            document.getElementById('editEndDate').value = endDate;
-
-            // Set the event ID in a hidden field for submission
-            let eventId = this.getAttribute('data-event-id');
-            document.getElementById('editId').value = eventId;
-
-            openEditForm();
-        });
+        // Set the values in the edit form fields
+        document.getElementById('editTitle').value = title;
+        document.getElementById('editStartDate').value = startDate;
+        document.getElementById('editEndDate').value = endDate;
+        document.getElementById('editId').value = eventId;
+        openEditForm(); // Open the edit form modal
     });
+});
+
     // Function to open edit form
     function openEditForm() {
         document.getElementById('edit-pop-up').style.display = 'flex';

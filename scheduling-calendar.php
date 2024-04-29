@@ -39,7 +39,6 @@ body {
 }
 #calendar {
     margin: 20px auto;
-   
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     padding: 50px; /* Increased padding for more space */

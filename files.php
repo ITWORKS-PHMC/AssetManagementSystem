@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // File uploaded successfully
         $file_desc = $_POST['description'];
         $file_name = $_FILES["file"]["name"];
-        $file_content = file_get_contents($_FILES["file"]["tmp_name"]); // Get file content
+        $file_content = addslashes(file_get_contents($_FILES["file"]["tmp_name"])); // Get file content
         $upload_date = date("Y-m-d H:i:s"); // Current datetime
 
         // Insert file details into database
@@ -108,11 +108,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
     }
 
-    .file-box img {
-        max-width: 100%;
-        height: auto;
-    }
-
     .files-content {
         text-align: center; /* Center the file items */
     }
@@ -122,11 +117,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <script>
     // Function to update the file name display and image preview
     function updateFileNameAndPreview(input) {
-        var fileName = input.files[0] ? input.files[0].name : 'No file chosen';
-        var fileNameDisplay = document.getElementById('file-name-display');
-        fileNameDisplay.textContent = fileName;
+    var fileName = input.files[0] ? input.files[0].name : 'No file chosen';
+    var fileNameDisplay = document.getElementById('file-name-display');
+    fileNameDisplay.textContent = fileName;
 
+    // Preview the image
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            document.getElementById('preview-image').setAttribute('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
     }
+}
 
     // Trigger the file input click event when the custom button is clicked
     document.getElementById('custom-button').addEventListener('click', function() {
@@ -184,17 +189,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Fetch uploaded files from the database
 $query = "SELECT * FROM upload";
 $result = mysqli_query($conn, $query);
-
-while ($row = mysqli_fetch_array($result)) {
+while ($row = mysqli_fetch_assoc($result)) {
     echo '<div class="file-item">'; // Start a container for each file
     echo '<div class="file-box">'; // Start styled box for the file
-    echo '<img src="data:image;base64,' . base64_encode($row['file_name']) . '" alt="file-image" height="200" width="200">'; // Display the image
+    echo '<img src="data:image;base64,' . $row['file_name'] . '" alt="file-image" height="200" width="200">'; // Display the image
     echo '<p><b>' . $row['file_desc'] . '</b></p>'; // Display file description
     echo '<p>' . $row['Upload_date'] . '</p>'; // Display file description
     echo '</div>'; // Close the styled box
     echo '</div>'; // Close the container
 }
+
 ?>
 </div>
 </body>
+<script>  
+</script>
 </html>
