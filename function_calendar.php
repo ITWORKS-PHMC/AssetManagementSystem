@@ -7,60 +7,71 @@ if ($con->connect_error) {
     die("Connection failed: " . $con->connect_error);
 }
 
-// Check if form is submitted for insertion
+// Inserting schedules to database
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if(isset($_POST['addSchedule'])){
-        $title = $_POST['title'];
-        $startdate = $_POST['startDate'];
-        $enddate = $_POST['endDate'];
+        // Validation if all the fields are empty
+        if(!empty($_POST['title']) && !empty($_POST['startDate']) && !empty($_POST['endDate'])) {
+            $title = $_POST['title'];
+            $startdate = $_POST['startDate'];
+            $enddate = $_POST['endDate'];
 
-        // Prepare and bind statement to prevent SQL injection
-        $insertSql = $con->prepare("INSERT INTO scheduling (title, schedule_date, end_date) VALUES (?, ?, ?)");
-        $insertSql->bind_param("sss", $title, $startdate, $enddate);
+            // Prepare and bind statement to prevent SQL injection
+            $insertSql = $con->prepare("INSERT INTO scheduling (title, schedule_date, end_date) VALUES (?, ?, ?)");
+            $insertSql->bind_param("sss", $title, $startdate, $enddate);
 
-        // Execute SQL query
-        if ($insertSql->execute() === TRUE) {
-            // Redirect to avoid duplicate form submission
-            header("Location: scheduling.php"); // Corrected redirect path
-            echo "<script>console.log('Datas: $title <br> $startdate <br> $enddate')</script>";
-            exit();
+            // Execute SQL query
+            if ($insertSql->execute() === TRUE) {
+                header("Location: scheduling.php"); // Corrected redirect path
+                echo "<script>console.log('Data: $title <br> $startdate <br> $enddate')</script>";
+                exit();
+            } else {
+                echo "Error: " . $insertSql->error;
+            }
+            $insertSql->close();
         } else {
-            echo "Error: " . $insertSql->error;
+            // JavaScript prompt if any field is empty
+           echo "<script>alert('All fields are required.'); window.history.back();</script>";
+            exit();
         }
-        $insertSql->close();
     }
 }
-// Check if form is submitted for updating
-if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
-    if (isset($_POST['editSchedule'])){
-        // Debugging: Echo out received POST data
-        echo "<script>console.log('Received POST data:<br>')</script>";
-        var_dump($_POST);
-
-        $id = $_POST['editId'];
+     // Updating schedules from the database
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['editSchedule'])) {
+        $eventId = $_POST['editId'];
         $title = $_POST['editTitle'];
         $startdate = $_POST['editStartDate'];
         $enddate = $_POST['editEndDate'];
 
-        // Prepare and bind statement to prevent SQL injection
+        // Prepare and bind SQL query
         $updateSql = $con->prepare("UPDATE scheduling SET title = ?, schedule_date = ?, end_date = ? WHERE id = ?");
-        $updateSql->bind_param("sssi", $title, $startdate, $enddate, $id);
+        $updateSql->bind_param("sssi", $title, $startdate, $enddate, $eventId);
 
         // Execute SQL query
         if ($updateSql->execute() === TRUE) {
-            // Redirect to avoid duplicate form submission
-            header("Location: scheduling.php"); // Corrected redirect path
+            header("Location: scheduling.php");
             exit();
         } else {
-            // Print error message including SQL query
             echo "Error: " . $updateSql->error;
-            
         }
-        $updateSql->close(); 
-    }  
+
+        $updateSql->close();
+    }
 }
 
-// Query to fetch scheduling data
+
+    //Delete schedules from the database
+    
+
+
+
+
+
+
+
+// Query to fetch scheduling data to display in the calendar module
+// Fetch scheduling data from the database
 $display_query = "SELECT id, title, schedule_date, end_date FROM scheduling";
 $results = $con->query($display_query);
 
@@ -71,11 +82,15 @@ if ($results && $results->num_rows > 0) {
 
     // Fetch data and format it
     while ($data_row = $results->fetch_assoc()) {
+        // Adjust the end date to include the last day of the event
+        $end_date = date("Y-m-d", strtotime($data_row['end_date'] . ' +1 day'));
+
+        // Add the event to the data array
         $data_arr[] = array(
             'id' => $data_row['id'],
             'title' => $data_row['title'],
             'start' => date("Y-m-d", strtotime($data_row['schedule_date'])),
-            'end' => date("Y-m-d", strtotime($data_row['end_date'])),
+            'end' => $end_date,
             'color' => '#640a00', // Set color as desired
             'url' => '#' // Set URL as desired
         );
@@ -101,4 +116,5 @@ echo json_encode($scheduleData);
 
 // Close database connection
 $con->close();
+
 ?>
