@@ -1,6 +1,5 @@
 <?php
 require 'config/connect.php';
-
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if file is uploaded successfully
@@ -39,12 +38,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="style.css">
     <?php include("./resources/navbar.php")?>
     <style>
-       /* Hide the default file input button */
         input[type="file"] {
             display: none;
         }
-
-        /* Style the custom file input button */
         .custom-file-input {
             display: inline-block;
             padding: 10px 15px;
@@ -53,40 +49,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             border: none;
             cursor: pointer;
         }
-
-        /* Style the file name display */
         .file-name {
             display: inline-block;
             margin-left: 10px;
             color: #333;
             cursor: default;
         }
-
-        /* Style the image preview box */
         .preview-box {
             margin-bottom: 10px;
             text-align: center;
         }
-
         .preview-box img {
             max-width: 200px;
             max-height: 200px;
             display: block;
             margin: auto;
         }
-
-        /* Positioning for modal content */
         .modal-content {
             display: flex;
             justify-content: space-between;
         }
-
         .upload-section,
         .description-section {
             flex: 1;
             padding: 10px;
         }
-
         .button-section {
             text-align: center;
             margin-top: 20px;
@@ -94,60 +81,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .file-item {
         display: inline-block;
         vertical-align: top;
-        margin-right: 20px; /* Adjust as needed */
-    }
-
-    .file-box {
-        border: 1px solid #ccc;
-        padding: 10px;
-        margin-bottom: 10px;
-        border-radius: 5px;
-        position: relative;
-        width: 200px; /* Set a fixed width for consistency */
-        text-align: center; /* Center the content */
-        
-    }
-
-    .files-content {
-        text-align: center; /* Center the file items */
-    }
-
+        margin-right: 20px;
+        }
+        .file-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            position: relative;
+            width: 200px; 
+            text-align: center; 
+            
+        }
+        .files-content {
+            text-align: center; 
+        }
     </style>
 </head>
-<script>
-    // Function to update the file name display and image preview
-    function updateFileNameAndPreview(input) {
-    var fileName = input.files[0] ? input.files[0].name : 'No file chosen';
-    var fileNameDisplay = document.getElementById('file-name-display');
-    fileNameDisplay.textContent = fileName;
-
-    // Preview the image
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-            document.getElementById('preview-image').setAttribute('src', e.target.result);
-        }
-
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-
-    // Trigger the file input click event when the custom button is clicked
-    document.getElementById('custom-button').addEventListener('click', function() {
-        document.getElementById('file-input').click();
-    });
-
-    function openForm(){
-        document.getElementById("pop-up").style.display = "flex";
-    }
-
-    function closeForm() {
-        document.getElementById("pop-up").style.display = "none";
-    }
-</script>
-
 <body>
+<script src="./resources/script.js" defer></script>
 <div class="files-header">
     <p class="title-page">Files to Upload</p>
     <button class="btnUpload-style" onclick="openForm()">Upload File</button>

@@ -51,6 +51,7 @@ $result = $conn->query($sql);
     <?php include("./resources/navbar.php") ?>
 </head>
 <body>
+<script src="./resources/script.js" defer></script>
     <div class="page-header">
         <div class="title-container">
             <p class="title-page">Ticketing</p>
@@ -69,26 +70,7 @@ $result = $conn->query($sql);
     </div>
     <br>
     <hr>
-    <script>
-        function openForm() {
-            document.getElementById("pop-up").style.display = "flex";
-        }
-        function closeForm() {
-            document.getElementById("pop-up").style.display = "none";
-        }
-        document.getElementById('searchTerm').addEventListener('input', function() {
-            var searchTerm = this.value.toLowerCase();
-            var tableRows = document.querySelectorAll('.table-design tbody tr');
-            tableRows.forEach(function(row) {
-                var text = row.textContent.toLowerCase();
-                if (text.includes(searchTerm)) {
-                    row.style.display = '';
-                } else {
-                    row.style.display = 'none';
-                }
-            });
-        });
-    </script>
+ 
     <div class="Modal" id="pop-up">
         <div class="popup">
             <form class="Form" method="post" id="addTicketForm" action="<?php echo $_SERVER['PHP_SELF']; ?>">

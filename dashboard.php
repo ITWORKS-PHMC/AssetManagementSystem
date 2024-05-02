@@ -14,7 +14,6 @@
     </header>
     <br>
 <div class="dashboard-content">
-  
     </div>
     <div class="summary-box">
     </div>

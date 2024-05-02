@@ -16,11 +16,6 @@ if (isset($_SESSION['message'])) {
     <link rel="stylesheet" href="style.css">
 </head>
 <style>
-.calendar-container {
-        flex: 1; 
-        max-width: 70%; 
-    }
-
 .schedule-container {
         display: flex;
         flex-wrap: wrap; 
@@ -30,7 +25,6 @@ if (isset($_SESSION['message'])) {
     justify-content: center;
     margin-top: 20px;
 }
-
 .buttonAdd {
     width: 200px;
     padding: 10px;
@@ -42,7 +36,6 @@ if (isset($_SESSION['message'])) {
     font-size: 16px;
     transition: background-color 0.3s ease;
 }
-
 .buttonAdd:hover {
     background-color: #45a049;
 }
@@ -59,11 +52,9 @@ if (isset($_SESSION['message'])) {
     overflow-y: scroll;
     overflow-x: hidden;
 }
-
 .list-content {
     flex: 1; 
 }
-
 .list-content p {
     margin-bottom: 10px;
 }
@@ -76,11 +67,9 @@ if (isset($_SESSION['message'])) {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-
 .edit-btn:hover {
     background-color: #355f99; 
 }
-
 .delete-btn {
     margin-left: 10px;
     background-color: #d9534f;
@@ -97,15 +86,15 @@ if (isset($_SESSION['message'])) {
 }
 </style>
 <body>
+<script src="./resources/script.js" defer></script>
 <header>
-    <p class="title-page">Scheduling</p>
+<p class="title-page">Scheduling</p>
 </header>
-
 <br><hr>
 <br>
 <!-- CALENDAR MODULE -->
 <div class="schedule-container">
-    <div class="calendar-container">
+    <div class="calendar-container" style="flex: 1; max-width: 70%;">
         <?php include("scheduling-calendar.php"); ?>
     </div>
     <div class="list-container">
@@ -129,7 +118,7 @@ if (isset($_SESSION['message'])) {
                     echo "<p><strong>Schedule Date:</strong> $schedule_date</p>";
                     echo "<p><strong>End Date:</strong> $end_date</p>";
                     echo "<button class='edit-btn' style='cursor:pointer;' data-title='$title' data-start-date='$schedule_date' data-end-date='$end_date' data-event-id='$eventId'>Edit</button>";                            
-                    echo "<button class='delete-btn' style='cursor:pointer;' ata-event-id='$eventId'>Delete</button>";
+                    echo "<button class='delete-btn' style='cursor:pointer;' data-title='$title' data-start-date='$schedule_date' data-end-date='$end_date' data-event-id='$eventId'>Delete</button>";
                     echo "<hr>";
                 }
             } else {
@@ -164,9 +153,9 @@ if (isset($_SESSION['message'])) {
             <label for="editTitle">Title:</label><br>
             <input type="text" id="editTitle" name="editTitle"><br>
             <label for="edit-startdate">Start-Date:</label><br>
-            <input type="datetime-local" id="editStartDate" name="editStartDate" step="1"><br>
+            <input type="datetime-local" id="editStartDate" name="editStartDate" step="60"><br>
             <label for="edit-enddate">End-Date:</label><br>
-            <input type="datetime-local" id="editEndDate" name="editEndDate" step="1"><br><br>
+            <input type="datetime-local" id="editEndDate" name="editEndDate" step="60" ><br><br>
             <input type="hidden" name="editSchedule" value="1"> 
             <input type="submit" value="Save Changes" class="btn-edit" style="cursor:pointer;">
             <button type="button" class="btn-cancel" onclick="closeEditForm()">Cancel</button>
@@ -177,63 +166,23 @@ if (isset($_SESSION['message'])) {
 <!-- CALENDAR MODAL for deleting schedule dates -->
 <div class="Modal" id="delete-pop-up">
     <div class="popup">
-           <form class="Form" method="post" id="deleteSchedule" action="function_calendar.php">
-            <p><strong>Title:</strong> <?php echo $title; ?></p>
-            <p><strong>Schedule Date:</strong> <?php echo $schedule_date; ?></p>
-            <p><strong>End Date:</strong> <?php echo $end_date; ?></p>
+        <form class="Form" method="post" id="deleteSchedule" action="function_calendar.php">
+            <label for="title"><strong>Title:</strong></label>
+            <input type="text" id="deleteTitle" name="deleteTitle" value=""style="background-color: #f0f0f0;" readonly>
+            <label for="schedule_date"><strong>Schedule Date:</strong></label>
+            <input type="text" id="deleteStart" name="deleteStart" value="" style="background-color: #f0f0f0;" readonly>
+            <label for="end_date"><strong>End Date:</strong></label>
+            <input type="text" id="deleteEnd" name="deleteEnd" value="" style="background-color: #f0f0f0;" readonly>
             <button type="submit" name="deleteSchedule" class="delete-schedule-btn">Delete schedule</button>
-            <input type="hidden" name="eventId" value="<?php echo $eventId; ?>">
+            <input type="hidden" id="deleteId" name="deleteId" value="<?php echo $eventId; ?>">
             <button type="button" class="btn-cancel" onclick="closeDelForm()">Cancel</button>
         </form>
+
     </div>
 </div>
 
  <script>
-    //Pop-up form for inserting schedule
-        function openForm() {
-            document.getElementById("pop-up").style.display = "flex";
-        }
-        function closeForm() {
-            document.getElementById("pop-up").style.display = "none";
-        }
-
-    //Pop-up form for editing schedule
-    
-        function openEditForm() {
-            document.getElementById('edit-pop-up').style.display = 'flex';
-        }
-        function closeEditForm() {
-            document.getElementById('edit-pop-up').style.display = 'none';
-    }
-        //fetch data for editing schedule
-        document.querySelectorAll('.edit-btn').forEach(button => {
-        button.addEventListener('click', function() {
-        
-        let title = this.getAttribute('data-title');
-        let startDate = this.getAttribute('data-start-date');
-        let endDate = this.getAttribute('data-end-date');
-        let eventId = this.getAttribute('data-event-id');
-
-        // Set the values in the edit form fields
-            document.getElementById('editTitle').value = title;
-            document.getElementById('editId').value = eventId;
-            document.getElementById('editStartDate').value = startDate;
-            document.getElementById('editEndDate').value = endDate;
-
-        openEditForm(); // Open the edit form modal
-            console.log("title: ",title,"ID :",eventId); // debug 
-        
-    });
-});
-
-    //Pop-up form for deleting schedule
-
-        function openDelForm(){
-            document.getElementById('delete-pop-up').style.display = 'flex';
-        }
-        function closeDelForm(){
-            document.getElementById('delete-pop-up').style.display = 'none';
-        }
+  
 		</script>
 </body>
 </html>

@@ -87,7 +87,6 @@ body {
 .fc-start,
 .fc-not-end,
 .fc-draggable {
-    /* background-color: #00ab41!important; */
 	border-color:black !important;
     cursor: pointer;
 }
