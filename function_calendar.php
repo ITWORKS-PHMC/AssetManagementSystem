@@ -60,9 +60,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
+// Delete schedules from the database
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['deleteSchedule']));
+        $eventId = $_POST['deleteId'];
 
-    //Delete schedules from the database
-    
+        // Ensure $eventId is not empty and is numeric
+        if (!empty($eventId) && is_numeric($eventId)) {
+            // Prepare and bind SQL query for deletion
+            $deleteSql = $con->prepare("DELETE FROM scheduling WHERE id = ?");
+            $deleteSql->bind_param("i", $eventId);
+
+            // Execute SQL query
+            if ($deleteSql->execute() === TRUE) {
+                header("Location: scheduling.php");
+                exit();
+            } else {
+                echo "Error: " . $deleteSql->error;
+            }
+
+            $deleteSql->close();
+        } else {
+            echo "Invalid event ID";
+        }
+    }
 
 
 

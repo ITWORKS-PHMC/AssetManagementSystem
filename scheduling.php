@@ -166,18 +166,18 @@ if (isset($_SESSION['message'])) {
 <!-- CALENDAR MODAL for deleting schedule dates -->
 <div class="Modal" id="delete-pop-up">
     <div class="popup">
-        <form class="Form" method="post" id="deleteSchedule" action="function_calendar.php">
+        <form class="Form" method="post" id="deleteScheduleForm" action="function_calendar.php">
+            <h3>Are you sure you want to delete event?</h3>
             <label for="title"><strong>Title:</strong></label>
-            <input type="text" id="deleteTitle" name="deleteTitle" value=""style="background-color: #f0f0f0;" readonly>
+            <input type="text" id="deleteTitle" name="deleteTitle" value="" style="background-color: #f0f0f0;" readonly>
             <label for="schedule_date"><strong>Schedule Date:</strong></label>
             <input type="text" id="deleteStart" name="deleteStart" value="" style="background-color: #f0f0f0;" readonly>
             <label for="end_date"><strong>End Date:</strong></label>
             <input type="text" id="deleteEnd" name="deleteEnd" value="" style="background-color: #f0f0f0;" readonly>
-            <button type="submit" name="deleteSchedule" class="delete-schedule-btn">Delete schedule</button>
+            <input type="submit" value="Delete Event" name="deleteSchedule" class="delete-schedule-btn" ></input>
             <input type="hidden" id="deleteId" name="deleteId" value="<?php echo $eventId; ?>">
             <button type="button" class="btn-cancel" onclick="closeDelForm()">Cancel</button>
         </form>
-
     </div>
 </div>
 
