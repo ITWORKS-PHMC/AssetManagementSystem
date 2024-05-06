@@ -5,21 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Preventive Maintenance</title>
     <link rel="stylesheet" href="style.css">
-    
+    <style>
+        /* Style for active link */
+        .active-link {
+            color: #27b339 !important;
+        }
+    </style>
 </head>
-<!----Loading Menus--->
-<script>
-function loadContent(url) {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      document.getElementById("LoadMenus").innerHTML = this.responseText;
-    }
-  };
-  xhttp.open("GET", url, true);
-  xhttp.send();
-}
-  </script>
+
 <body>
   <!----Navigation Menu------->
 <div class="navigation-bar">
@@ -28,16 +21,26 @@ function loadContent(url) {
       <p>PREVENTIVE MAINTENANCE</p>
     </div>
     <div class="header-sections">
-      <a href="dashboard.php" class="nav-link" >Dashboard</a>
-      <a href="scheduling.php" class="nav-link">Scheduling</a>
-      <a href="files.php" class="nav-link" >Files</a>
-      <a href="ticketing.php" class="nav-link" >Ticketing</a>
-      <a href="history.php" class="nav-link" >History</a>
-      
+      <a href="dashboard.php" class="nav-link" onclick="highlightLink(this)">Dashboard</a>
+      <a href="scheduling.php" class="nav-link" onclick="highlightLink(this)">Scheduling</a>
+      <a href="files.php" class="nav-link" onclick="highlightLink(this)">Files</a>
+      <a href="ticketing.php" class="nav-link" onclick="highlightLink(this)">Ticketing</a>
+      <a href="history.php" class="nav-link" onclick="highlightLink(this)">History</a>
     </div>
   </div>
 </div>
-<div id="LoadMenus">
-</div>
+
+<script>
+function highlightLink(link) {
+    // Remove 'active-link' class from all links
+    var links = document.querySelectorAll('.nav-link');
+    links.forEach(function(item) {
+        item.classList.remove('active-link');
+    });
+    // Add 'active-link' class to the clicked link
+    link.classList.add('active-link');
+}
+</script>
+
 </body>
 </html>

@@ -1,44 +1,7 @@
 <?php
 require 'config/connect.php';
+include ("function_ticketing.php");
 
-// Handle form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // If search term is provided
-    if (isset($_POST['searchTerm']) && !empty($_POST['searchTerm'])) {
-        $searchTerm = $_POST['searchTerm'];
-        $sql = "SELECT * FROM ticketing WHERE dept LIKE '%$searchTerm%' OR empname LIKE '%$searchTerm%' OR item LIKE '%$searchTerm%'";
-    } else {
-        $sql = "SELECT * FROM ticketing";
-    }
-
-    // If form is submitted to add a ticket
-    if (isset($_POST['addTicket'])) {
-        // Extract form data
-        $dept = $_POST['dept'];
-        $empname = $_POST['name'];
-        $item = $_POST['item'];
-        $createdBy = $_POST['createBy'];
-        $editedBy = $_POST['editor'];
-        $startDate = $_POST['startDate'];
-        $endDate = $_POST['endDate'];
-
-        // SQL to insert data into ticketing table
-        $insertSql = "INSERT INTO ticketing (dept, empname, item, startDate, endDate, createdBy, editedBy, status) 
-                      VALUES ('$dept', '$empname', '$item', '$startDate', '$endDate', '$createdBy', '$editedBy', 1)";
-
-        if ($conn->query($insertSql) === TRUE) {
-            // Redirect to avoid duplicate form submission
-            header("Location: " . $_SERVER['PHP_SELF']);
-            exit();
-        } else {
-            echo "Error: " . $insertSql . "<br>" . $conn->error;
-        }
-    }
-} else {
-    $sql = "SELECT * FROM ticketing";
-}
-
-$result = $conn->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +33,8 @@ $result = $conn->query($sql);
     </div>
     <br>
     <hr>
- 
+
+    <!-- Modal for adding ticketing -->
     <div class="Modal" id="pop-up">
         <div class="popup">
             <form class="Form" method="post" id="addTicketForm" action="<?php echo $_SERVER['PHP_SELF']; ?>">
@@ -108,22 +72,12 @@ $result = $conn->query($sql);
                 <th scope="col">Duration</th>
                 <th scope="col">Edited-By</th>
                 <th scope="col">Status</th>
+                <th scope="col">Action</th>
             </thead>
             <tbody>
                 <?php
-                function getStatusText($status) {
-                    $statusText = '';
-                    if ($status == 1) {
-                        $statusText = '<span class="status-yellow">On Progress</span>';
-                    } elseif ($status == 2) {
-                        $statusText = '<span class="status-red">Deadline</span>';
-                    } elseif ($status == 3) {
-                        $statusText = '<span class="status-green">Accomplished</span>';
-                    }
-                    return $statusText;
-                }
                 function getDurationText($duration) {
-                    if ($duration < 0) {
+                    if ($duration <= 0) {
                         return '<span class="status-red">Reached Deadline</span>';
                     } elseif ($duration < 4) {
                         return '<span class="status-yellow">Near Deadline</span>';
@@ -132,42 +86,60 @@ $result = $conn->query($sql);
                     }
                 }
                 if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . $row['id'] . "</td>";
-                        echo "<td>" . $row['dept'] . "</td>";
-                        echo "<td>" . $row['empname'] . "</td>";
-                        echo "<td>" . $row['item'] . "</td>";
-                        echo "<td>" . $row['createdBy'] . "</td>";
-                        echo "<td>" . $row['startDate'] . "</td>";
-                        echo "<td>" . $row['endDate'] . "</td>";
-                        $startDate = strtotime($row['startDate']);
-                        $endDate = strtotime($row['endDate']);
-                        $duration = $endDate - $startDate;
-                        // Calculate days, hours, and minutes
-                        $days = floor($duration / (60 * 60 * 24));
-                        $hours = floor(($duration % (60 * 60 * 24)) / (60 * 60));
-                        $minutes = floor(($duration % (60 * 60)) / 60);
-                        echo "<td>" . $days . " days, " . $hours . " hours, " . $minutes . " minutes</td>";
-                        echo "<td>" . $row['editedBy'] . "</td>";
-                        $statusText = getDurationText($days);
-                        // Apply background color based on status
-                        $tdColor = '';
-                        if ($statusText == '<span class="status-yellow">Near Deadline</span>') {
-                            $tdColor = 'background-color: yellow;';
-                        } elseif ($statusText == '<span class="status-red">Reached Deadline</span>') {
-                            $tdColor = 'background-color: red;';
-                        }
-                        echo "<td style='$tdColor'>" . $statusText . "</td>";
-                        echo "</tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='10'>No matching records found.</td></tr>";
-                }
+        while ($row = $result->fetch_assoc()) {
+            $rowid = $row['id']; // identifier per row
+            echo "<tr onclick='Ticket-row-click($rowid)' onmouseover='this.style.backgroundColor=\"#3498DB \"; this.style.color=\"#ffffff\";' onmouseout='this.style.backgroundColor=\"\"; this.style.color=\"\";'>";
+            echo "<td>" . $row['id'] . "</td>";
+            echo "<td>" . $row['dept'] . "</td>";
+            echo "<td>" . $row['empname'] . "</td>";
+            echo "<td>" . $row['item'] . "</td>";
+            echo "<td>" . $row['createdBy'] . "</td>";
+            echo "<td>" . $row['startDate'] . "</td>";
+            echo "<td>" . $row['endDate'] . "</td>";
+            $startDate = strtotime($row['startDate']);
+            $endDate = strtotime($row['endDate']);
+            $duration = $endDate - $startDate;
+            // Calculate days, hours, and minutes
+            $days = floor($duration / (60 * 60 * 24));
+            $hours = floor(($duration % (60 * 60 * 24)) / (60 * 60));
+            $minutes = floor(($duration % (60 * 60)) / 60);
+            echo "<td>" . $days . " days, " . $hours . " hours, " . $minutes . " minutes</td>";
+            echo "<td>" . $row['editedBy'] . "</td>";
+            $statusText = getDurationText($days);
+            // Apply background color based on status
+            $tdColor = '';
+            if ($statusText == '<span class="status-yellow">Near Deadline</span>') {
+                $tdColor = 'background-color: #F9E116;';
+            } elseif ($statusText == '<span class="status-red">Reached Deadline</span>') {
+                $tdColor = 'background-color: #DD494C;';
+            } elseif ($statusText == '<span class="status-green">On Progress</span>') {
+                $tdColor = 'background-color: #2ea44f;';
+            }
+            echo "<td style='$tdColor'>" . $statusText . "</td>";
+            // Action buttons
+            echo "<td style='text-align:center;'>";
+            echo "<button style='cursor:pointer; color: white; background-color: #2592FF; margin-right: 10px;  display: inline-block; padding: 8px 16px; border-radius: 4px;'>Edit</button>";
+            echo "<button style='cursor:pointer; color: white; background-color: #DD494C; margin-right: 10px;  display: inline-block; padding: 8px 16px; border-radius: 4px;'>Delete</button>";
+            echo "</td>";
+            echo "</tr>";   
+        }
+    } else {
+        echo "<tr><td colspan='11'>No matching records found.</td></tr>";
+    }
                 ?>
             </tbody>
         </table>
     </div>
+
+<!-- Modal for viewing ticketing -->
+ <div class="Modal" id="pop-up">
+        <div class="popup">
+            <form class="Form" method="post" id="editTicketForm" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                <label for="dept">Department:</label><br>
+            </form>
+        </div>
+    </div>
+
 </body>
 </html>
 <?php

@@ -1,3 +1,5 @@
+// Script for navbar.php //
+
 // Script for scheduling.php //
 
 //Pop-up form for inserting schedule

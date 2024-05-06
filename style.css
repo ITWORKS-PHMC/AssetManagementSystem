@@ -67,7 +67,7 @@ body {
   text-decoration: none !important;
   color: #333333 !important;
   font-weight: bold !important;
-  transition: color 0.3s ease !important;
+  transition: color 0.2s ease !important;
 }
 
 .nav-link:hover {
@@ -93,11 +93,6 @@ body {
   padding: 8px;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
-}
-
-/*------- Table row styles (alternating colors) -------*/
-.table-design tbody tr:nth-child(even) {
-  background-color: #d4d4d4;
 }
 
 /*------- Table cell styles -------*/
