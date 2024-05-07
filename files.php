@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $upload_date = date("Y-m-d H:i:s"); // Current datetime
 
         // Insert file details into database
-        $sql = "INSERT INTO upload (file_desc, file_name, upload_date) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO upload (file_desc, file_content, upload_date) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sss", $file_desc, $file_name, $upload_date);
         
@@ -135,22 +135,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <hr>
 <br>
 <div class="files-content" id="filesContent">
-    <!-- Images and descriptions will be displayed here -->
-        <!-- Display uploaded files from database -->
 <?php  
-// Fetch uploaded files from the database
-$query = "SELECT * FROM upload";
-$result = mysqli_query($conn, $query);
-while ($row = mysqli_fetch_assoc($result)) {
-    echo '<div class="file-item">'; // Start a container for each file
-    echo '<div class="file-box">'; // Start styled box for the file
-    echo '<img src="data:image;base64,' . $row['file_name'] . '" alt="file-image" height="200" width="200">'; // Display the image
-    echo '<p><b>' . $row['file_desc'] . '</b></p>'; // Display file description
-    echo '<p>' . $row['Upload_date'] . '</p>'; // Display file description
-    echo '</div>'; // Close the styled box
-    echo '</div>'; // Close the container
-}
 
+
+// $query = "SELECT * FROM upload";
+// $result = mysqli_query($conn, $query);
+// while ($row = mysqli_fetch_assoc($result)) {
+//     echo '<div class="file-item">'; 
+//     echo '<div class="file-box">'; 
+//     echo '<img src="data:image;base64,' . base64_encode($row['file_content']) . '" alt="file-image" height="200" width="200">'; 
+//     echo '<p><b>' . $row['file_desc'] . '</b></p>'; 
+//     echo '<p>' . $row['Upload_date'] . '</p>'; 
+//     echo '</div>'; 
+//     echo '</div>'; 
+// }
 ?>
 </div>
 </body>

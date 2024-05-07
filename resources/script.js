@@ -77,7 +77,10 @@ document.getElementById("searchTerm").addEventListener("input", function () {
     }
   });
 });
-
+function EditcloseForm() {
+  document.getElementById("editTicketPop").style.display = "none";
+  console.log("click");
+}
 // -----------------------------------------------------------------------------------------//
 
 // Script for files.php //

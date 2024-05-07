@@ -22,7 +22,7 @@ include ("function_ticketing.php");
     </div>
     <div class="toolbar">
         <div class="search-container">
-            <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+            <form method="post" action="function_ticketing.php">
                 <input type="text" id="searchTerm" name="searchTerm" placeholder="Search . . . . " value="<?php echo isset($_POST['searchTerm']) ? $_POST['searchTerm'] : ''; ?>">
                 <button type="submit">Search</button>
             </form>
@@ -37,7 +37,7 @@ include ("function_ticketing.php");
     <!-- Modal for adding ticketing -->
     <div class="Modal" id="pop-up">
         <div class="popup">
-            <form class="Form" method="post" id="addTicketForm" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+            <form class="Form" method="post" id="addTicketForm" action="function_ticketing.php">
                 <label for="dept">Department:</label><br>
                 <input type="text" id="dept" name="dept"><br>
                 <label for="name">Name:</label><br>
@@ -66,11 +66,8 @@ include ("function_ticketing.php");
                 <th scope="col">Department</th>
                 <th scope="col">Name</th>
                 <th scope="col">Item</th>
-                <th scope="col">Created-By</th>
                 <th scope="col">Start-Date</th>
                 <th scope="col">End-Date</th>
-                <th scope="col">Duration</th>
-                <th scope="col">Edited-By</th>
                 <th scope="col">Status</th>
                 <th scope="col">Action</th>
             </thead>
@@ -88,12 +85,20 @@ include ("function_ticketing.php");
                 if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $rowid = $row['id']; // identifier per row
+            $department = $row['dept'];
+            $Emp = $row['empname'];
+            $item= $row['item'];
+            $start = $row['startDate'];
+            $end = $row['endDate'];
+            $createdBy = $row['createdBy'];
+            $status = $row['status'];
+            $editor = $row['editedBy'];
+
             echo "<tr onclick='Ticket-row-click($rowid)' onmouseover='this.style.backgroundColor=\"#3498DB \"; this.style.color=\"#ffffff\";' onmouseout='this.style.backgroundColor=\"\"; this.style.color=\"\";'>";
             echo "<td>" . $row['id'] . "</td>";
             echo "<td>" . $row['dept'] . "</td>";
             echo "<td>" . $row['empname'] . "</td>";
             echo "<td>" . $row['item'] . "</td>";
-            echo "<td>" . $row['createdBy'] . "</td>";
             echo "<td>" . $row['startDate'] . "</td>";
             echo "<td>" . $row['endDate'] . "</td>";
             $startDate = strtotime($row['startDate']);
@@ -103,8 +108,6 @@ include ("function_ticketing.php");
             $days = floor($duration / (60 * 60 * 24));
             $hours = floor(($duration % (60 * 60 * 24)) / (60 * 60));
             $minutes = floor(($duration % (60 * 60)) / 60);
-            echo "<td>" . $days . " days, " . $hours . " hours, " . $minutes . " minutes</td>";
-            echo "<td>" . $row['editedBy'] . "</td>";
             $statusText = getDurationText($days);
             // Apply background color based on status
             $tdColor = '';
@@ -118,7 +121,7 @@ include ("function_ticketing.php");
             echo "<td style='$tdColor'>" . $statusText . "</td>";
             // Action buttons
             echo "<td style='text-align:center;'>";
-            echo "<button style='cursor:pointer; color: white; background-color: #2592FF; margin-right: 10px;  display: inline-block; padding: 8px 16px; border-radius: 4px;'>Edit</button>";
+            echo "<button onclick='EditTicket()'style='cursor:pointer; color: white; background-color: #2592FF; margin-right: 10px;  display: inline-block; padding: 8px 16px; border-radius: 4px;'>Edit</button>";
             echo "<button style='cursor:pointer; color: white; background-color: #DD494C; margin-right: 10px;  display: inline-block; padding: 8px 16px; border-radius: 4px;'>Delete</button>";
             echo "</td>";
             echo "</tr>";   
@@ -130,17 +133,26 @@ include ("function_ticketing.php");
             </tbody>
         </table>
     </div>
+                <button type="button" class="btn-cancel" onclick="EditcloseForm()">Close</button>
 
 <!-- Modal for viewing ticketing -->
- <div class="Modal" id="pop-up">
+ <div class="Modal" id="editTicketPop">
         <div class="popup">
-            <form class="Form" method="post" id="editTicketForm" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-                <label for="dept">Department:</label><br>
+            <form class="Form" method="post" id="editTicketForm" action="function_ticketing.php"> 
+            <label></label>     
+            <button type="button" class="btn-cancel" onclick="EditcloseForm()">Close</button>
+
             </form>
         </div>
     </div>
-
 </body>
+<script>
+function EditTicket() {
+  document.getElementById("editTicketPop").style.display = "flex";
+}
+
+
+</script>
 </html>
 <?php
 $conn->close();
