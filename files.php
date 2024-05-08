@@ -138,17 +138,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php  
 
 
-// $query = "SELECT * FROM upload";
-// $result = mysqli_query($conn, $query);
-// while ($row = mysqli_fetch_assoc($result)) {
-//     echo '<div class="file-item">'; 
-//     echo '<div class="file-box">'; 
-//     echo '<img src="data:image;base64,' . base64_encode($row['file_content']) . '" alt="file-image" height="200" width="200">'; 
-//     echo '<p><b>' . $row['file_desc'] . '</b></p>'; 
-//     echo '<p>' . $row['Upload_date'] . '</p>'; 
-//     echo '</div>'; 
-//     echo '</div>'; 
-// }
+$query = "SELECT * FROM upload";
+$result = mysqli_query($conn, $query);
+while ($row = mysqli_fetch_assoc($result)) {
+    echo '<div class="file-item">'; 
+    echo '<div class="file-box">'; 
+    echo '<img src="data:image;base64,' . base64_encode($row['file_content']) . '" alt="file-image" height="200" width="200">'; 
+    echo '<p><b>' . $row['file_desc'] . '</b></p>'; 
+    echo '<p>' . $row['Upload_date'] . '</p>'; 
+    echo '</div>'; 
+    echo '</div>'; 
+}
 ?>
 </div>
 </body>

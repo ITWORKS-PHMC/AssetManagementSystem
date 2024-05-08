@@ -149,7 +149,7 @@ function display_events() {
 
 // Function to generate a random color
 function generateRandomColor() {
-    var letters = '0123456789ABCDEF';
+    var letters = '01234F56789ABCDE';
     var color = '#';
     for (var i = 0; i < 6; i++) {
         color += letters[Math.floor(Math.random() * 16)];

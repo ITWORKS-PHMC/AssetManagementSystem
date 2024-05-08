@@ -139,9 +139,26 @@ include ("function_ticketing.php");
  <div class="Modal" id="editTicketPop">
         <div class="popup">
             <form class="Form" method="post" id="editTicketForm" action="function_ticketing.php"> 
-            <label></label>     
+        <h3>Edit Ticket</h3>
+            <label>Order No. : </label>
+            <input id="editId" type ="text" readonly style="background-color:#DCDAD9;"></input> 
+            <label>Department :</label> 
+            <input id="editDept" type ="text"></input> 
+            <label>Name :  </label>
+            <input id="editName" type ="text"></input>
+            <label>Item :  </label>
+            <input id="editItem" type ="text"></input>
+            <label>Start Date :  </label>
+            <input id="editStart" type ="datetime-local"></input>
+            <label>End Date : </label>
+            <input id="editEnd" type ="datetime-local"></input>
+            <label>Created by : </label>
+            <input id="editCreate" type ="text" readonly></input>
+            <label>Status : </label>
+            <input id="editStatus" type ="text"></input>
+            <label>Last edited by : </label>  
+            <input id="editor" type ="text"></input>
             <button type="button" class="btn-cancel" onclick="EditcloseForm()">Close</button>
-
             </form>
         </div>
     </div>

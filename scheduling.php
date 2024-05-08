@@ -149,6 +149,7 @@ if (isset($_SESSION['message'])) {
 <div class="Modal" id="edit-pop-up">
     <div class="popup">
         <form class="Form" method="post" id="editSchedule" action="function_calendar.php">
+            <h3>Edit Schedule</h3>
             <input type="hidden" id="editId" name="editId" value="">
             <label for="editTitle">Title:</label><br>
             <input type="text" id="editTitle" name="editTitle"><br>

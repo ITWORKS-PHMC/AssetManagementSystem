@@ -147,6 +147,30 @@ body {
   align-items: center;
   animation: fadeIn 0.1s ease forwards;
 }
+
+/* Style for inputs inside the Modal */
+.Modal input[type="text"],
+.Modal input[type="datetime-local"] {
+  width: calc(100% - 20px); /* Adjust input width */
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px; /* Adjust font size */
+}
+
+.Modal label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.Modal .Form {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
 .Form {
   width: 100%;
   max-width: 700px;
