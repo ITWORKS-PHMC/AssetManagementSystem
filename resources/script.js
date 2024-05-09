@@ -81,6 +81,10 @@ function EditcloseForm() {
   document.getElementById("editTicketPop").style.display = "none";
   console.log("click");
 }
+
+// fetch data for ticketing.php
+document.querySelectorAll("");
+
 // -----------------------------------------------------------------------------------------//
 
 // Script for files.php //

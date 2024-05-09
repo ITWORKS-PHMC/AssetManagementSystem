@@ -121,8 +121,8 @@ include ("function_ticketing.php");
             echo "<td style='$tdColor'>" . $statusText . "</td>";
             // Action buttons
             echo "<td style='text-align:center;'>";
-            echo "<button onclick='EditTicket()'style='cursor:pointer; color: white; background-color: #2592FF; margin-right: 10px;  display: inline-block; padding: 8px 16px; border-radius: 4px;'>Edit</button>";
-            echo "<button style='cursor:pointer; color: white; background-color: #DD494C; margin-right: 10px;  display: inline-block; padding: 8px 16px; border-radius: 4px;'>Delete</button>";
+            echo "<button ticketTile = '' class = 'edit-ticket-btn' onclick='EditTicket()'style='cursor:pointer; color: white; background-color: #2592FF; margin-right: 10px;  display: inline-block; padding: 8px 16px; border-radius: 4px;'>Edit</button>";
+            echo "<button class= 'del-ticket-btn' onclick='DelTicket()' style='cursor:pointer; color: white; background-color: #DD494C; margin-right: 10px;  display: inline-block; padding: 8px 16px; border-radius: 4px;'>Delete</button>";
             echo "</td>";
             echo "</tr>";   
         }
@@ -133,35 +133,35 @@ include ("function_ticketing.php");
             </tbody>
         </table>
     </div>
-                <button type="button" class="btn-cancel" onclick="EditcloseForm()">Close</button>
 
 <!-- Modal for viewing ticketing -->
- <div class="Modal" id="editTicketPop">
-        <div class="popup">
-            <form class="Form" method="post" id="editTicketForm" action="function_ticketing.php"> 
-        <h3>Edit Ticket</h3>
+ <div class="Modal" id="editTicketPop" >
+    <div class="popup">
+        <form class="Form" method="post" id="editTicketForm" action="function_ticketing.php" >
+            <h3>Edit Ticket</h3>
             <label>Order No. : </label>
-            <input id="editId" type ="text" readonly style="background-color:#DCDAD9;"></input> 
-            <label>Department :</label> 
-            <input id="editDept" type ="text"></input> 
-            <label>Name :  </label>
-            <input id="editName" type ="text"></input>
-            <label>Item :  </label>
-            <input id="editItem" type ="text"></input>
-            <label>Start Date :  </label>
-            <input id="editStart" type ="datetime-local"></input>
+            <input id="editId" type="text" readonly style="background-color: #DCDAD9;">
+            <label>Department :</label>
+            <input id="editDept" type="text">
+            <label>Name : </label>
+            <input id="editName" type="text">
+            <label>Item : </label>
+            <input id="editItem" type="text">
+            <label>Start Date : </label>
+            <input id="editStart" type="datetime-local">
             <label>End Date : </label>
-            <input id="editEnd" type ="datetime-local"></input>
+            <input id="editEnd" type="datetime-local">
             <label>Created by : </label>
-            <input id="editCreate" type ="text" readonly></input>
+            <input id="editCreate" type="text" readonly style="background-color: #DCDAD9;">
             <label>Status : </label>
-            <input id="editStatus" type ="text"></input>
-            <label>Last edited by : </label>  
-            <input id="editor" type ="text"></input>
+            <input id="editStatus" type="text">
+            <label>Last edited by : </label>
+            <input id="editor" type="text">
             <button type="button" class="btn-cancel" onclick="EditcloseForm()">Close</button>
-            </form>
-        </div>
+        </form>
     </div>
+</div>
+
 </body>
 <script>
 function EditTicket() {
