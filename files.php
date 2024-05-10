@@ -1,5 +1,6 @@
 <?php
 require 'config/connect.php';
+
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if file is uploaded successfully
@@ -7,11 +8,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // File uploaded successfully
         $file_desc = $_POST['description'];
         $file_name = $_FILES["file"]["name"];
-        $file_content = addslashes(file_get_contents($_FILES["file"]["tmp_name"])); // Get file content
+        $file_tmp_name = $_FILES["file"]["tmp_name"];
+        $file_content = addslashes(file_get_contents($file_tmp_name)); // Get file content
         $upload_date = date("Y-m-d H:i:s"); // Current datetime
 
+        // Upload the file to a folder
+        $upload_folder = "uploads/";
+        move_uploaded_file($file_tmp_name, $upload_folder . $file_name);
+
         // Insert file details into database
-        $sql = "INSERT INTO upload (file_desc, file_content, upload_date) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO upload (file_desc, file_name, upload_date) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sss", $file_desc, $file_name, $upload_date);
         
@@ -143,13 +149,19 @@ $result = mysqli_query($conn, $query);
 while ($row = mysqli_fetch_assoc($result)) {
     echo '<div class="file-item">'; 
     echo '<div class="file-box">'; 
-    echo '<img src="data:image;base64,' . base64_encode($row['file_content']) . '" alt="file-image" height="200" width="200">'; 
+    echo '<img src="data:image;base64,' . base64_encode($row['file_name']) . '" alt="file-image" height="200" width="200">'; 
     echo '<p><b>' . $row['file_desc'] . '</b></p>'; 
-    echo '<p>' . $row['Upload_date'] . '</p>'; 
+    echo '<p>' . $row['upload_date'] . '</p>'; 
     echo '</div>'; 
     echo '</div>'; 
 }
+
+
+
 ?>
+
+<!-- Add a button to call the function -->
+<button onclick="displayImages()">Display Images</button>
 </div>
 </body>
 <script>  
