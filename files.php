@@ -94,14 +94,65 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             padding: 10px;
             margin-bottom: 10px;
             border-radius: 5px;
-            position: relative;
-            width: 200px; 
-            text-align: center; 
-            
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .file-box img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .file-desc {
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .upload-date {
+            color: #777;
+            font-size: 0.9em;
         }
         .files-content {
             text-align: center; 
         }
+       .delete-button {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    .delete-button:hover {
+        background-color: #c82333;
+    }
+
+    .file-box {
+        position: relative;
+    }
+
+    .file-box:hover .delete-button {
+        display: block;
+    }
+
+    .file-box:hover img,
+    .file-box:hover .file-name,
+    .file-box:hover .upload-date {
+        opacity: 0.3;
+        transition: opacity 0.3s ease;
+    }
+
+    .file-item {
+        position: relative;
+        display: inline-block;
+        margin: 10px;
+    }
     </style>
 </head>
 <body>
@@ -142,26 +193,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <br>
 <div class="files-content" id="filesContent">
 <?php  
-
-
 $query = "SELECT * FROM upload";
 $result = mysqli_query($conn, $query);
+
+// Loop through each row in the result set
 while ($row = mysqli_fetch_assoc($result)) {
     echo '<div class="file-item">'; 
     echo '<div class="file-box">'; 
-    echo '<img src="data:image;base64,' . base64_encode($row['file_name']) . '" alt="file-image" height="200" width="200">'; 
-    echo '<p><b>' . $row['file_desc'] . '</b></p>'; 
-    echo '<p>' . $row['upload_date'] . '</p>'; 
-    echo '</div>'; 
-    echo '</div>'; 
+    
+    // Displaying the image from the upload folder
+    $imagePath = "uploads/" . $row['file_name']; // Path to the image
+    if (file_exists($imagePath)) {
+        echo '<img src="' . $imagePath . '" alt="file-image" height="200" width="200">'; 
+    } else {
+        echo '<p>Image not found</p>';
+    }
+echo '<br><p class="file-name">' . $row['file_name'] . '</p>';
+$upload_date = strtotime($row['Upload_date']);
+$year = date('Y', $upload_date);
+$month = date('F', $upload_date);
+$day = date('j', $upload_date);
+$time = date('h:i A', $upload_date);
+
+echo '<p class="upload-date">' . $month . ' ' . $day . ', ' . $year . '<br>' . $time . '</p>'; 
+    echo '<button class="delete-button" onclick="deleteFile(' . $row['id'] . ')">Delete</button>';
+
+
+echo '</div>'; 
+echo '</div>';
 }
-
-
-
 ?>
-
-<!-- Add a button to call the function -->
-<button onclick="displayImages()">Display Images</button>
 </div>
 </body>
 <script>  

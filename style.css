@@ -151,12 +151,12 @@ body {
 /* Style for inputs inside the Modal */
 .Modal input[type="text"],
 .Modal input[type="datetime-local"] {
-  width: calc(100% - 20px); /* Adjust input width */
+  width: calc(100% - 20px);
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 16px; /* Adjust font size */
+  font-size: 16px;
 }
 
 .Modal label {
@@ -224,7 +224,7 @@ body {
   background-color: #2ea44f;
   border: 1px solid rgba(27, 31, 35, 0.15);
   border-radius: 6px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Updated box-shadow */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
@@ -234,7 +234,7 @@ body {
   font-size: 14px;
   font-weight: 600;
   line-height: 20px;
-  padding: 8px 20px; /* Slightly increased padding */
+  padding: 8px 20px;
   text-align: center;
   text-decoration: none;
   user-select: none;
@@ -242,12 +242,12 @@ body {
   touch-action: manipulation;
   vertical-align: middle;
   white-space: nowrap;
-  transition: background-color 0.3s ease; /* Smooth color transition */
+  transition: background-color 0.3s ease;
 }
 
 .buttonAdd:hover {
   background-color: #ff1493;
-  color: #fff; /* Change text color on hover */
+  color: #fff;
 }
 
 .search-container {

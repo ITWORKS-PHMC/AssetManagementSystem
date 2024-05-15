@@ -13,6 +13,100 @@ include ("function_ticketing.php");
     <link rel="stylesheet" href="style.css">
     <?php include("./resources/navbar.php") ?>
 </head>
+<style>
+.table-container {
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    width: 1800px; /* Adjust width as needed */
+    max-width: 100%; /* Set maximum width */
+    margin: 0 auto; /* Center the container horizontally */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #ddd;
+}
+
+.btn-edit, .btn-delete {
+    cursor: pointer;
+    padding: 8px 16px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-edit {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.btn-edit:hover, .btn-delete:hover {
+    background-color: #0056b3;
+}
+.edit-ticket-btn, .del-ticket-btn{
+  appearance: none;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  padding: 8px 20px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  white-space: nowrap;
+  transition: background-color 0.3s ease;
+  margin-right: 5px;
+}
+.edit-ticket-btn {
+    background-color: #007bff; 
+    color: #fff;
+}
+
+.del-ticket-btn {
+    background-color: #dc3545; 
+    color: #fff;
+}
+.edit-ticket-btn:hover {
+    background-color: #0056b3; 
+}
+
+.del-ticket-btn:hover {
+    background-color: #9c0000; 
+}
+</style>
 <body>
 <script src="./resources/script.js" defer></script>
     <div class="page-header">
@@ -59,6 +153,7 @@ include ("function_ticketing.php");
         </div>
     </div>
     <br>
+    <div class="table-container">
     <div class="table-wrapper">
         <table class="table-design">
             <thead class="table-header">
@@ -121,8 +216,8 @@ include ("function_ticketing.php");
             echo "<td style='$tdColor'>" . $statusText . "</td>";
             // Action buttons
             echo "<td style='text-align:center;'>";
-            echo "<button ticketTile = '' class = 'edit-ticket-btn' onclick='EditTicket()'style='cursor:pointer; color: white; background-color: #2592FF; margin-right: 10px;  display: inline-block; padding: 8px 16px; border-radius: 4px;'>Edit</button>";
-            echo "<button class= 'del-ticket-btn' onclick='DelTicket()' style='cursor:pointer; color: white; background-color: #DD494C; margin-right: 10px;  display: inline-block; padding: 8px 16px; border-radius: 4px;'>Delete</button>";
+            echo "<button class = 'edit-ticket-btn' onclick='EditTicket()'>Edit</button>";
+            echo "<button class= 'del-ticket-btn' onclick='DelTicket()'>Delete</button>";
             echo "</td>";
             echo "</tr>";   
         }
@@ -133,7 +228,7 @@ include ("function_ticketing.php");
             </tbody>
         </table>
     </div>
-
+</div>
 <!-- Modal for viewing ticketing -->
  <div class="Modal" id="editTicketPop" >
     <div class="popup">
