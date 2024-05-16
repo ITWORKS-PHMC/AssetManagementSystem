@@ -112,12 +112,14 @@ if (isset($_SESSION['message'])) {
                 while ($row = mysqli_fetch_assoc($result)) {
                     $eventId = $row['id']; 
                     $title = $row['title'];
-                    $schedule_date = date("F d, Y | h:ia", strtotime($row['schedule_date'])); 
-                    $end_date = date("F d, Y | h:ia", strtotime($row['end_date'])); 
+                    $startDate = $row['schedule_date']; // to display schedule date for editing
+                    $endDate = $row['end_date']; // to display end date for editing
+                    $schedule_date = date("F d, Y | h:ia", strtotime($row['schedule_date']));  // to display schedule date for list of events
+                    $end_date = date("F d, Y | h:ia", strtotime($row['end_date'])); // to display end date for list of events
                     echo "<p><strong>Title:</strong> $title</p>";
                     echo "<p><strong>Schedule Date:</strong> $schedule_date</p>";
                     echo "<p><strong>End Date:</strong> $end_date</p>";
-                    echo "<button class='edit-btn' style='cursor:pointer;' data-title='$title' data-start-date='$schedule_date' data-end-date='$end_date' data-event-id='$eventId'>Edit</button>";                            
+                    echo "<button class='edit-btn' style='cursor:pointer;' data-title='$title' data-start-date='$startDate' data-end-date='$endDate' data-event-id='$eventId'>Edit</button>";                            
                     echo "<button class='delete-btn' style='cursor:pointer;' data-title='$title' data-start-date='$schedule_date' data-end-date='$end_date' data-event-id='$eventId'>Delete</button>";
                     echo "<hr>";
                 }
@@ -154,9 +156,9 @@ if (isset($_SESSION['message'])) {
             <label for="editTitle">Title:</label><br>
             <input type="text" id="editTitle" name="editTitle"><br>
             <label for="edit-startdate">Start-Date:</label><br>
-            <input type="datetime-local" id="editStartDate" name="editStartDate" step="60"><br>
+            <input type="datetime-local" id="editStartDate" name="editStartDate"><br>
             <label for="edit-enddate">End-Date:</label><br>
-            <input type="datetime-local" id="editEndDate" name="editEndDate" step="60" ><br><br>
+            <input type="datetime-local" id="editEndDate" name="editEndDate" ><br><br>
             <input type="hidden" name="editSchedule" value="1"> 
             <input type="submit" value="Save Changes" class="btn-edit" style="cursor:pointer;">
             <button type="button" class="btn-cancel" onclick="closeEditForm()">Cancel</button>
@@ -183,7 +185,7 @@ if (isset($_SESSION['message'])) {
 </div>
 
  <script>
-  
+
 		</script>
 </body>
 </html>

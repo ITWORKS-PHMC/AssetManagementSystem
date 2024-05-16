@@ -32,7 +32,7 @@ document.querySelectorAll(".edit-btn").forEach((button) => {
     document.getElementById("editEndDate").value = endDate;
 
     openEditForm(); // Open the edit form modal
-    console.log("title: ", title, "ID :", eventId); // debug
+    console.log("title: ", title, "ID :", eventId, startDate, endDate); // debug
   });
 });
 //Pop-up form for deleting schedule
@@ -62,7 +62,6 @@ function closeDelForm() {
 }
 
 // -----------------------------------------------------------------------------------------//
-
 // Script for ticketing.php //
 
 document.getElementById("searchTerm").addEventListener("input", function () {
@@ -81,9 +80,6 @@ function EditcloseForm() {
   document.getElementById("editTicketPop").style.display = "none";
   console.log("click");
 }
-
-// fetch data for ticketing.php
-document.querySelectorAll("");
 
 // -----------------------------------------------------------------------------------------//
 

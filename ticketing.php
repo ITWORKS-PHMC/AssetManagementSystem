@@ -114,6 +114,8 @@ tr:hover {
             <p class="title-page">Ticketing</p>
         </div>
     </div>
+    <br>
+    <hr>
     <div class="toolbar">
         <div class="search-container">
             <form method="post" action="function_ticketing.php">
@@ -124,10 +126,7 @@ tr:hover {
         <div class="button-container">
             <button class="buttonAdd" onclick="openForm()">+ Ticket</button>
         </div>
-    </div>
-    <br>
-    <hr>
-
+    </div><br>
     <!-- Modal for adding ticketing -->
     <div class="Modal" id="pop-up">
         <div class="popup">
@@ -189,7 +188,7 @@ tr:hover {
             $status = $row['status'];
             $editor = $row['editedBy'];
 
-            echo "<tr onclick='Ticket-row-click($rowid)' onmouseover='this.style.backgroundColor=\"#3498DB \"; this.style.color=\"#ffffff\";' onmouseout='this.style.backgroundColor=\"\"; this.style.color=\"\";'>";
+            echo "<tr onmouseover='this.style.backgroundColor=\"#3498DB \"; this.style.color=\"#ffffff\";' onmouseout='this.style.backgroundColor=\"\"; this.style.color=\"\";'>";
             echo "<td>" . $row['id'] . "</td>";
             echo "<td>" . $row['dept'] . "</td>";
             echo "<td>" . $row['empname'] . "</td>";
@@ -216,7 +215,7 @@ tr:hover {
             echo "<td style='$tdColor'>" . $statusText . "</td>";
             // Action buttons
             echo "<td style='text-align:center;'>";
-            echo "<button class = 'edit-ticket-btn' onclick='EditTicket()'>Edit</button>";
+            echo "<button class = 'edit-ticket-btn' edit-id='$rowid' edit-dept='$department' edit-name='$Emp' edit-item='$item' edit-start='$start' edit-end='$end' edit-created='$createdBy' edit-status='$status' edit-editor='$editor' onclick='EditTicket()'>Edit</button>";
             echo "<button class= 'del-ticket-btn' onclick='DelTicket()'>Delete</button>";
             echo "</td>";
             echo "</tr>";   
@@ -229,7 +228,7 @@ tr:hover {
         </table>
     </div>
 </div>
-<!-- Modal for viewing ticketing -->
+<!-- Modal for edit ticket -->
  <div class="Modal" id="editTicketPop" >
     <div class="popup">
         <form class="Form" method="post" id="editTicketForm" action="function_ticketing.php" >
@@ -251,7 +250,9 @@ tr:hover {
             <label>Status : </label>
             <input id="editStatus" type="text">
             <label>Last edited by : </label>
-            <input id="editor" type="text">
+            <input id="editEditor" type="text">
+            <input type="hidden" name="editTicket" value="1">
+            <input type="submit" value="Submit Edit" class="btn-add">
             <button type="button" class="btn-cancel" onclick="EditcloseForm()">Close</button>
         </form>
     </div>
@@ -262,8 +263,41 @@ tr:hover {
 function EditTicket() {
   document.getElementById("editTicketPop").style.display = "flex";
 }
+document.querySelectorAll(".edit-ticket-btn").forEach((button) => {
+  button.addEventListener("click", function () {
+    let editId = this.getAttribute("edit-id");
+    let editDept = this.getAttribute("edit-dept");
+    let editName = this.getAttribute("edit-name");
+    let editItem = this.getAttribute("edit-item");
+    let editStart = this.getAttribute("edit-start");
+    let editEnd = this.getAttribute("edit-end");
+    let editCreate = this.getAttribute("edit-created");
+    let editStatus = this.getAttribute("edit-status");
+    let editEditor = this.getAttribute("edit-editor");
 
+    console.log("Data retrieved for editing:");
+    console.log("Edit ID:", editId);
+    console.log("Department:", editDept);
+    console.log("Name:", editName);
+    console.log("Item:", editItem);
+    console.log("Start Date:", editStart);
+    console.log("End Date:", editEnd);
+    console.log("Created By:", editCreate);
+    console.log("Status:", editStatus);
+    console.log("Editor:", editEditor);
 
+    // Populate the modal form with the retrieved data
+    document.getElementById("editId").value = editId;
+    document.getElementById("editDept").value = editDept;
+    document.getElementById("editName").value = editName;
+    document.getElementById("editItem").value = editItem;
+    document.getElementById("editStart").value = editStart;
+    document.getElementById("editEnd").value = editEnd;
+    document.getElementById("editCreate").value = editCreate;
+    document.getElementById("editStatus").value = editStatus;
+    document.getElementById("editEditor").value = editEditor;
+  });
+});
 </script>
 </html>
 <?php
