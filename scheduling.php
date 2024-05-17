@@ -88,7 +88,7 @@ if (isset($_SESSION['message'])) {
 <body>
 <script src="./resources/script.js" defer></script>
 <header>
-<p class="title-page">Scheduling</p>
+
 </header>
 <br><hr>
 <br>
@@ -135,6 +135,7 @@ if (isset($_SESSION['message'])) {
 <div class="Modal" id="pop-up">
     <div class="popup">
         <form class="Form" method="post" id="addSchedule" action="function_calendar.php">
+            <p class="modal-header">ADD NEW SCHEDULE</p><br>
             <label for="title">Title:</label><br>
             <input type="text" id="title" name="title"><br>
             <label for="startdate">Start-Date:</label><br>
@@ -151,7 +152,7 @@ if (isset($_SESSION['message'])) {
 <div class="Modal" id="edit-pop-up">
     <div class="popup">
         <form class="Form" method="post" id="editSchedule" action="function_calendar.php">
-            <h3>Edit Schedule</h3>
+            <p class="modal-header">EDIT SCHEDULE</p><br>
             <input type="hidden" id="editId" name="editId" value="">
             <label for="editTitle">Title:</label><br>
             <input type="text" id="editTitle" name="editTitle"><br>
@@ -160,7 +161,7 @@ if (isset($_SESSION['message'])) {
             <label for="edit-enddate">End-Date:</label><br>
             <input type="datetime-local" id="editEndDate" name="editEndDate" ><br><br>
             <input type="hidden" name="editSchedule" value="1"> 
-            <input type="submit" value="Save Changes" class="btn-edit" style="cursor:pointer;">
+            <input type="submit" value="Save Changes" class="btn-add" style="cursor:pointer;">
             <button type="button" class="btn-cancel" onclick="closeEditForm()">Cancel</button>
         </form>
     </div>
@@ -170,14 +171,14 @@ if (isset($_SESSION['message'])) {
 <div class="Modal" id="delete-pop-up">
     <div class="popup">
         <form class="Form" method="post" id="deleteScheduleForm" action="function_calendar.php">
-            <h3>Are you sure you want to delete event?</h3>
+            <p class="modal-header">Are your sure you want to delete?</p><br>
             <label for="title"><strong>Title:</strong></label>
             <input type="text" id="deleteTitle" name="deleteTitle" value="" style="background-color: #f0f0f0;" readonly>
             <label for="schedule_date"><strong>Schedule Date:</strong></label>
             <input type="text" id="deleteStart" name="deleteStart" value="" style="background-color: #f0f0f0;" readonly>
             <label for="end_date"><strong>End Date:</strong></label>
             <input type="text" id="deleteEnd" name="deleteEnd" value="" style="background-color: #f0f0f0;" readonly>
-            <input type="submit" value="Delete Event" name="deleteSchedule" class="delete-schedule-btn" ></input>
+            <input type="submit" value="Delete Event" name="deleteSchedule" class="btn-delete" ></input>
             <input type="hidden" id="deleteId" name="deleteId" value="<?php echo $eventId; ?>">
             <button type="button" class="btn-cancel" onclick="closeDelForm()">Cancel</button>
         </form>

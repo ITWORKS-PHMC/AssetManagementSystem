@@ -215,8 +215,10 @@ tr:hover {
             echo "<td style='$tdColor'>" . $statusText . "</td>";
             // Action buttons
             echo "<td style='text-align:center;'>";
+            // fetch data for edit ticket
             echo "<button class = 'edit-ticket-btn' edit-id='$rowid' edit-dept='$department' edit-name='$Emp' edit-item='$item' edit-start='$start' edit-end='$end' edit-created='$createdBy' edit-status='$status' edit-editor='$editor' onclick='EditTicket()'>Edit</button>";
-            echo "<button class= 'del-ticket-btn' onclick='DelTicket()'>Delete</button>";
+            // fetch data for delete ticket
+            echo "<button class= 'del-ticket-btn' del-id='$rowid' del-dept='$department' del-name='$Emp' del-item='$item' del-start='$start' del-end='$end' del-created='$createdBy' del-status='$status' del-editor='$editor'  onclick='DelTicket()'>Delete</button>";
             echo "</td>";
             echo "</tr>";   
         }
@@ -229,42 +231,97 @@ tr:hover {
     </div>
 </div>
 <!-- Modal for edit ticket -->
- <div class="Modal" id="editTicketPop" >
+<div class="Modal" id="editTicketPop">
     <div class="popup">
-        <form class="Form" method="post" id="editTicketForm" action="function_ticketing.php" >
-            <h3>Edit Ticket</h3>
-            <label>Order No. : </label>
-            <input id="editId" type="text" readonly style="background-color: #DCDAD9;">
-            <label>Department :</label>
-            <input id="editDept" type="text">
-            <label>Name : </label>
-            <input id="editName" type="text">
-            <label>Item : </label>
-            <input id="editItem" type="text">
-            <label>Start Date : </label>
-            <input id="editStart" type="datetime-local">
-            <label>End Date : </label>
-            <input id="editEnd" type="datetime-local">
-            <label>Created by : </label>
-            <input id="editCreate" type="text" readonly style="background-color: #DCDAD9;">
-            <label>Status : </label>
-            <input id="editStatus" type="text">
-            <label>Last edited by : </label>
-            <input id="editEditor" type="text">
+        <form class="Form" method="post" id="editTicketForm" action="function_ticketing.php">
+            <p class="modal-header">EDIT TICKET</p><br>
+            <div style="margin-bottom: 10px;">
+                <label for="editId" style="display: inline-block; width: 120px;">Order# :</label>
+                <input id="editId" name="editId" type="text" readonly style="display: inline-block; text-align:center;width:20px; background-color: #DCDAD9; text-align: center;">
+            </div>
+            <div style="margin-bottom: 10px;">
+                <label for="editDept" style="display: inline-block; width: 120px;">Department :</label>
+                <input id="editDept" name="editDept" type="text" style="display: inline-block; width: 220px;">
+            </div>
+            <div style="margin-bottom: 10px;">
+                <label for="editName" style="display: inline-block; width: 120px;">Name :</label>
+                <input id="editName" name="editName" type="text" style="display: inline-block; width: 220px;">
+            </div>
+            <div style="margin-bottom: 10px;">
+                <label for="editItem" style="display: inline-block; width: 120px;">Item :</label>
+                <input id="editItem" name="editItem" type="text" style="display: inline-block; width: 220px;">
+            </div>
+            <div style="margin-bottom: 10px;">
+                <label for="editStart" style="display: inline-block; width: 120px;">Start Date :</label>
+                <input id="editStart" name="editStart" type="datetime-local" style="display: inline-block; width: 220px;">
+            </div>
+            <div style="margin-bottom: 10px;">
+                <label for="editEnd" style="display: inline-block; width: 120px;">End Date :</label>
+                <input id="editEnd" name="editEnd" type="datetime-local" style="display: inline-block; width: 220px;">
+            </div>
+            <div style="margin-bottom: 10px;">
+                <label for="editCreate" style="display: inline-block; width: 120px;">Created by :</label>
+                <input id="editCreate" name="editCreate" type="text" readonly style="display: inline-block; width: 220px; background-color: #DCDAD9;">
+            </div>
+            <div style="margin-bottom: 10px;">
+                <label for="editEditor" style="display: inline-block; width: 120px;">Edited by :</label>
+                <input id="editEditor" name="editEditor" type="text" style="display: inline-block; width: 220px;">
+            </div>
             <input type="hidden" name="editTicket" value="1">
-            <input type="submit" value="Submit Edit" class="btn-add">
-            <button type="button" class="btn-cancel" onclick="EditcloseForm()">Close</button>
+            <input type="submit" value="Submit Edit" class="btn-add" style="margin-top: 10px;">
+            <button type="button" class="btn-cancel" onclick="EditcloseForm()" style="margin-top: 10px; margin-left: 10px;">Close</button>
         </form>
     </div>
 </div>
+<!-- Modal for delete ticket -->
+ <div class="Modal" id="DelTicketPop" >
+    <div class="popup">
+        <form class="Form" method="post" id="DelTicketForm" action="function_ticketing.php" >
+            <p class="modal-header" style="background-color: #db333be1;">DELETE TICKET</p><br>
+             <div style="margin-bottom: 10px;">
+                <label style="display: inline-block; width: 120px;">Order# :</label>
+                <span id="delId" name="delID" style="display: inline-block; width: 220px;"></span>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <label style="display: inline-block; width: 120px;">Department :</label>
+                <span id="delDept" name="delDept" style="display: inline-block; width: 220px;"></span>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <label style="display: inline-block; width: 120px;">Name :</label>
+                <span id="delName" name="delName" style="display: inline-block; width: 220px;"></span>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <label style="display: inline-block; width: 120px;">Item :</label>
+                <span id="delItem" name="delItem" style="display: inline-block; width: 220px;"></span>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <label style="display: inline-block; width: 120px;">Start Date :</label>
+                <span id="delStart" name="delStart" style="display: inline-block; width: 220px;"></span>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <label style="display: inline-block; width: 120px;">End Date :</label>
+                <span id="delEnd" name="delEnd" style="display: inline-block; width: 220px;"></span>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <label style="display: inline-block; width: 120px;">Created by :</label>
+                <span id="delCreate" name="delCreate" style="display: inline-block; width: 220px;"></span>
+            </div>
+            <div style="margin-bottom: 10px;">
+                <label style="display: inline-block; width: 120px;">Edited by :</label>
+                <span id="delEditor" name="delEditor" style="display: inline-block; width: 220px;"></span>
+            </div>
+            <input type="hidden" name="DelTicket" value="1">
+            <input type="submit" value="Delete Ticket" class="btn-delete">
+            <button type="button" class="btn-cancel" onclick="DelcloseForm()">Close</button>
+        </form>
+    </div>
+</div>    
 
 </body>
 <script>
-function EditTicket() {
-  document.getElementById("editTicketPop").style.display = "flex";
-}
 document.querySelectorAll(".edit-ticket-btn").forEach((button) => {
   button.addEventListener("click", function () {
+
     let editId = this.getAttribute("edit-id");
     let editDept = this.getAttribute("edit-dept");
     let editName = this.getAttribute("edit-name");
@@ -275,18 +332,17 @@ document.querySelectorAll(".edit-ticket-btn").forEach((button) => {
     let editStatus = this.getAttribute("edit-status");
     let editEditor = this.getAttribute("edit-editor");
 
-    console.log("Data retrieved for editing:");
-    console.log("Edit ID:", editId);
-    console.log("Department:", editDept);
-    console.log("Name:", editName);
-    console.log("Item:", editItem);
-    console.log("Start Date:", editStart);
-    console.log("End Date:", editEnd);
-    console.log("Created By:", editCreate);
-    console.log("Status:", editStatus);
-    console.log("Editor:", editEditor);
-
-    // Populate the modal form with the retrieved data
+    // Debug fetch data
+    console.log("Order No# :" , editId);
+    console.log("Department :" ,editDept);
+    console.log("Name :" ,editName);
+    console.log("Item :", editItem) ;
+    console.log("Start :",editStart);
+    console.log("End :",editEnd);
+    console.log("Creator:",editCreate);
+    console.log("Editor :",editEditor);
+    console.log("Status :",editStatus);
+    //Display fetch datas
     document.getElementById("editId").value = editId;
     document.getElementById("editDept").value = editDept;
     document.getElementById("editName").value = editName;
@@ -294,10 +350,46 @@ document.querySelectorAll(".edit-ticket-btn").forEach((button) => {
     document.getElementById("editStart").value = editStart;
     document.getElementById("editEnd").value = editEnd;
     document.getElementById("editCreate").value = editCreate;
-    document.getElementById("editStatus").value = editStatus;
+    // document.getElementById("editStatus").value = editStatus;
     document.getElementById("editEditor").value = editEditor;
   });
 });
+document.querySelectorAll(".del-ticket-btn").forEach((button) => {
+  button.addEventListener("click", function () {
+    
+    let DelId = this.getAttribute("del-id");
+    let DelDept = this.getAttribute("del-dept");
+    let DelName = this.getAttribute("del-name");
+    let DelItem = this.getAttribute("del-item");
+    let DelStart = this.getAttribute("del-start");
+    let DelEnd = this.getAttribute("del-end");
+    let DelCreate = this.getAttribute("del-created");
+    let DelStatus = this.getAttribute("del-status");
+    let DelEditor = this.getAttribute("del-editor");
+    // for debugging datas 
+    console.log("Order No# :" , DelId);
+    console.log("Department :" ,DelDept);
+    console.log("Name :" ,DelName);
+    console.log("Item :", DelItem) ;
+    console.log("Start :",DelStart);
+    console.log("End :",DelEnd);
+    console.log("Creator:",DelCreate);
+    console.log("Editor :",DelEditor);
+    console.log("Status :",DelStatus);
+    // for displaying datas before deleting
+    document.getElementById("delId").value = DelId;
+    document.getElementById("delDept").value = DelDept;
+    document.getElementById("delName").value = DelName;
+    document.getElementById("delItem").value = DelItem;
+    document.getElementById("delStart").value = DelStart;
+    document.getElementById("delEnd").value = DelEnd;
+    document.getElementById("delCreate").value = DelCreate;
+    // document.getElementById("editStatus").value = editStatus;
+    document.getElementById("delEditor").value = DelEditor;
+
+  });
+});
+
 </script>
 </html>
 <?php

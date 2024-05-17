@@ -80,7 +80,16 @@ function EditcloseForm() {
   document.getElementById("editTicketPop").style.display = "none";
   console.log("click");
 }
-
+function EditTicket() {
+  document.getElementById("editTicketPop").style.display = "flex";
+}
+function DelTicket() {
+  document.getElementById("DelTicketPop").style.display = "flex";
+}
+function DelcloseForm() {
+  document.getElementById("DelTicketPop").style.display = "none";
+  console.log("click");
+}
 // -----------------------------------------------------------------------------------------//
 
 // Script for files.php //

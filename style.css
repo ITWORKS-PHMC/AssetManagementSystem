@@ -196,11 +196,46 @@ body {
 }
 
 .Form .btn-add,
-.Form .btn-cancel {
+.Form .btn-cancel,
+.Form .btn-delete {
   margin-top: 20px;
   cursor: pointer;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-family: -apple-system, system-ui, "Segoe UI", Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+.Form .btn-delete {
+  background-color: #e63b3b;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+.Form .btn-delete:hover {
+  background-color: #7e0606;
+}
+.Form .btn-add {
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s ease;
 }
 
+.Form .btn-add:hover {
+  background-color: #0056b3;
+}
+
+.Form .btn-cancel {
+  background-color: #6c757d;
+  color: white;
+  transition: background-color 0.3s ease;
+  margin-left: 10px;
+}
+
+.Form .btn-cancel:hover {
+  background-color: #5a6268;
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -269,4 +304,19 @@ body {
 }
 .toolbar {
   display: flex;
+}
+.modal-header {
+  background-color: #5fec95e1;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 1px solid #ccc;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  margin-bottom: 20px;
+  margin-top: -20px;
+  margin-left: -20px;
+  margin-right: -20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
